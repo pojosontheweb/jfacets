@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Context reloadable="true" debug="true" allowLinking="true">
+    <Resource name="jdbc/woko"
+        type="javax.sql.DataSource"
+        driverClassName="com.mysql.jdbc.Driver"
+        url="jdbc:mysql://localhost/wokodb"
+        username="woko_user"
+        password="woko_pass"
+        validationQuery="select now()"
+        maxWait="1000"
+        removeAbandoned="true"
+        maxActive="8"
+        maxIdle="4"
+        removeAbandonedTimeout="60"
+        logAbandoned="true"/>
+</Context>

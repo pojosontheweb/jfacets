@@ -1,0 +1,54 @@
+div.facetDebug:hover {
+    border: 2px solid green;
+}
+
+/*
+div.facetDebug:hover {
+	border: 2px dotted red;
+	padding: 5px;
+}
+*/
+
+/*
+#facetInfo {
+  position: relative;
+  float: right;
+  font-size: 0.8em;		
+}
+*/
+/*
+#facetDebugLink {
+  float: left;
+  color: blue;
+  background: blue;
+  display: none;
+}
+*/
+
+.facetInfo th {
+  font-weight: bold;
+  text-align: right;
+/*	font-size: 0.6em; */
+}
+
+.facetInfo td {
+	text-align: left;
+/*	font-size: 0.6em; */
+}
+
+/* ------------------------------------ */
+/*              Popup                   */
+/* ------------------------------------ */
+
+.popup {	
+/*	font-size: 0.6em; */
+	padding: 8px;
+    border: 4px solid green;
+    -moz-border-radius: 16px;
+	text-align: left;
+	font-style: normal;
+	position: absolute;
+    float: inherit;
+    display: none;
+    background-color: #FCFFFC;
+}

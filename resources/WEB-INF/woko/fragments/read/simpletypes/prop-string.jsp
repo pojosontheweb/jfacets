@@ -1,0 +1,1 @@
+${viewPropertyValue.propVal}
