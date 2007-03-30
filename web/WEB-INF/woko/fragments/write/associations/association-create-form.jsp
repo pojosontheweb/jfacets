@@ -9,9 +9,9 @@
         </stripes:select>
         <stripes:button name="create"
                     onclick="showFormAjax();"/>
-        <stripes:hidden name="id" value="<%=actionBean.getId()%>"/>
-        <stripes:hidden name="className" value="<%=actionBean.getClassName()%>"/>
-        <stripes:hidden name="propertyName" value="<%=actionBean.getPropertyName()%>"/>
-        <stripes:hidden name="propertyClass" value="<%=actionBean.getPropertyClass()%>"/>
+        <stripes:hidden name="id" value="${actionBean.id}"/>
+        <stripes:hidden name="className" value="${actionBean.className}"/>
+        <stripes:hidden name="propertyName" value="${actionBean.propertyName}"/>
+        <stripes:hidden name="propertyClass" value="${actionBean.propertyClass}"/>
     </p>
 </stripes:form>
