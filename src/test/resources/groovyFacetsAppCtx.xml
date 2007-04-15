@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+
+<!-- 
+
+A Spring Context for JFacets that already provides 
+support for Java/XML and Groovy facets.
+
+Configurable stuff in there :
+ * profileRepository : specify your implementation class (and config options if any)  ;
+ * xmlFacetDescriptorManager : specify the path the the XML file (CLASSPATH resource) ;
+ * groovyFacetDescriptorManager : specify the base packages for Groovy facets discovery.
+ 
+ -->
+
+<beans>
+
+	<!--                               -->
+	<!--      ProfileRepository        -->
+	<!--                               -->
+	<!--  This *has* to be configured  -->
+	<!--  for your application.        -->
+	<!--                               -->
+	<bean id="profileRepository" singleton="true"  
+			class="net.sourceforge.jfacets.simpleprofiles.SimpleProfileRepository">
+	</bean>
+
+	<!--                                 -->
+	<!--         Facet Managers          -->
+	<!--                                 -->
+	
+	<!-- the Groovy facet descriptor manager -->
+	<bean id="facetDescriptorManager" singleton="true"
+			class="net.sourceforge.jfacets.groovy.GroovyFacetDescriptorManager"
+			init-method="initialize">
+		<!-- A list of base packages to search into for Groovy Facets Discovery -->
+		<constructor-arg index="0">
+			<list>
+				<value>test-facets</value>
+			</list>
+		</constructor-arg>
+	</bean>
+	
+	<!--                                 -->
+	<!-- Facet & Facet Context factories -->
+	<!--                                 -->
+	<!-- No additional config is         -->
+	<!-- required here.                  -->
+	<!--                                 -->
+
+	<!--  a fall back factory, so that we can crate non-groovy facets too  -->
+	<bean id="fallbackFacetFactory" singleton="true"  
+			class="net.sourceforge.jfacets.impl.DefaultFacetFactory">
+	</bean>
+
+	<!--  the main facet factory : creates GroovyFacets -->
+	<bean id="facetFactory" singleton="true"  
+			class="net.sourceforge.jfacets.groovy.GroovyFacetFactory">
+		<property name="fallbackFactory"><ref bean="fallbackFacetFactory"/></property>			
+	</bean>
+
+	<!--  the facet context factory (default one) -->
+	<bean id="facetContextFactory" singleton="true"  
+			class="net.sourceforge.jfacets.impl.DefaultFacetContextFactory">
+	</bean>
+	
+	<!--                                    -->
+	<!--          Facet Repository          -->
+	<!--                                    -->
+	<!-- No additional config is required   -->
+	<!-- here.                              -->
+	<!--                                    -->
+
+	<bean id="facetRepository" singleton="true" 
+			class="net.sourceforge.jfacets.impl.FacetRepositoryImpl">
+		<constructor-arg index="0"><ref bean="profileRepository"/></constructor-arg>
+		<constructor-arg index="1"><ref bean="facetFactory"/></constructor-arg>
+		<constructor-arg index="2"><ref bean="facetContextFactory"/></constructor-arg>
+		<constructor-arg index="3"><ref bean="facetDescriptorManager"/></constructor-arg>
+	</bean>	
+	
+	<!--                                    -->
+	<!--       top-level JFacets bean       -->
+	<!--                                    -->
+	<!-- No additional config is required   -->
+	<!-- here.                              -->
+	<!--                                    -->
+
+	<bean id="jFacets" singleton="true" class="net.sourceforge.jfacets.JFacets">
+		<property name="facetRepository"><ref bean="facetRepository"/></property>
+	</bean>
+	
+
+</beans>

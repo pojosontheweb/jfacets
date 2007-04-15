@@ -1,0 +1,4 @@
+<facets>
+  <facet name="increment" profile="standard_role" object_type="java.lang.Integer" class="net.sourceforge.jfacets.examples.command.IncrementIntegerStandard"/>
+  <facet name="increment" profile="admin_role" object_type="java.lang.Integer" class="net.sourceforge.jfacets.examples.command.IncrementIntegerAdmin"/>
+</facets>

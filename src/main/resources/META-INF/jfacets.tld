@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<taglib xmlns="http://java.sun.com/xml/ns/j2ee"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee
+        http://java.sun.com/xml/ns/j2ee/web-jsptaglibrary_2_0.xsd"
+        version="2.0">
+
+    <description>
+        Provides tags for use with the JFacets framework.
+    </description>
+    <display-name>JFacets Tag Library</display-name>
+    <tlib-version>1.0</tlib-version>
+    <short-name>jfacets</short-name>
+    <uri>http://jfacets.sourceforge.net/jfacets.tld</uri>
+
+    <tag>
+        <description><![CDATA[
+            <p>Puts the facet with the specified key into page context under the
+            supplied name.</p>
+        ]]></description>
+        <display-name>useFacet</display-name>
+        <name>useFacet</name>
+        <tag-class>net.sourceforge.jfacets.web.tags.UseFacetTag</tag-class>
+        <body-content>empty</body-content>
+        <attribute>
+            <description>
+                The facet's name
+            </description>
+            <name>name</name><required>true</required><rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <description>
+                The profile ID
+            </description>
+            <name>profileId</name><required>false</required><rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <description>
+                The target object class
+            </description>
+            <name>targetObjectClass</name><required>false</required><rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <description>
+                The target object
+            </description>
+            <name>targetObject</name><required>false</required><rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <description>
+                The name of an attribute to bind the facet to in page context.
+            </description>
+            <name>var</name><required>true</required><rtexprvalue>true</rtexprvalue>
+        </attribute>
+    </tag>
+
+    <tag>
+        <description><![CDATA[
+            <p>Loads and executes the facet with the specified key, and 
+            puts the result into page context under the supplied name if any 
+            (is no name is supplied than result is written directly into the 
+            out writer).</p>
+        ]]></description>
+        <display-name>execFacet</display-name>
+        <name>execFacet</name>
+        <tag-class>net.sourceforge.jfacets.web.tags.ExecFacetTag</tag-class>
+        <body-content>empty</body-content>
+        <attribute>
+            <description>
+                The facet's name
+            </description>
+            <name>name</name><required>true</required><rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <description>
+                The profile ID
+            </description>
+            <name>profileId</name><required>false</required><rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <description>
+                The target object class
+            </description>
+            <name>targetObjectClass</name><required>false</required><rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <description>
+                The target object
+            </description>
+            <name>targetObject</name><required>false</required><rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <description>
+                The name of an attribute to bind the result of facet execution to in page context.
+            </description>
+            <name>var</name><required>false</required><rtexprvalue>true</rtexprvalue>
+        </attribute>
+    </tag>
+
+</taglib>
