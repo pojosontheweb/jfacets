@@ -75,7 +75,5 @@ public class InstanceFacetsTest extends TestCase {
 		assertNotNull(facet);
 		assertEquals(facet.getClass().getName(), "TestFacetArrayList");
 	}
-	
-	
 
 }
