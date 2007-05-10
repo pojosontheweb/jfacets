@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -17,7 +18,7 @@ import net.sourceforge.jfacets.IFacetDescriptorManager;
 
 /**
  * The Facet Descriptor Manager for Groovy Facets, which scans the CLASSPATH for 
- * "*.facet" Groovy Scripts, and creates associated descriptors. <br/>
+ * "*.facet" or "*.groovy" Scripts, and creates associated descriptors. <br/>
  * The name, profileId and target type key has to be in the file path, which 
  * has to follow naming conventions :<br/>
  * <pre>
@@ -34,7 +35,8 @@ import net.sourceforge.jfacets.IFacetDescriptorManager;
 public class GroovyFacetDescriptorManager implements IFacetDescriptorManager, ApplicationContextAware {
 
 	private static final String SEPARATOR = "/";
-	private static final String FACET_SCRIPT_SUFFIX = ".facet";
+	private static final String FACET_SCRIPT_SUFFIX1 = ".facet";
+	private static final String FACET_SCRIPT_SUFFIX2 = ".groovy";
 
 	private static final Logger logger = Logger.getLogger(GroovyFacetDescriptorManager.class); 
 		
@@ -68,11 +70,20 @@ public class GroovyFacetDescriptorManager implements IFacetDescriptorManager, Ap
 			// convert pkb base to path
 			pkgBase = SEPARATOR + pkgBase.replace('.', '/');
 			// try to find descriptors in this package...
-			String query = "classpath*:" + pkgBase + "/**/*" + FACET_SCRIPT_SUFFIX;
-			if (logger.isDebugEnabled()) logger.debug("Scanning CLASSPATH entries : " + query);
 			Resource[] facetFiles;
 			try {
-				facetFiles = springContext.getResources(query);				
+				String query1 = "classpath*:" + pkgBase + "/**/*" + FACET_SCRIPT_SUFFIX1;
+				if (logger.isDebugEnabled()) logger.debug("Scanning CLASSPATH entries : " + query1);
+				Resource[] resources1 = springContext.getResources(query1);	
+				String query2 = "classpath*:" + pkgBase + "/**/*" + FACET_SCRIPT_SUFFIX2;
+				if (logger.isDebugEnabled()) logger.debug("Scanning CLASSPATH entries : " + query2);
+				Resource[] resources2 = springContext.getResources(query2);	
+				ArrayList<Resource> resources = new ArrayList<Resource>();
+				resources.addAll(Arrays.asList(resources1));
+				resources.addAll(Arrays.asList(resources2));
+				facetFiles = new Resource[resources.size()];
+				facetFiles = resources.toArray(facetFiles);
+				if (logger.isDebugEnabled()) logger.debug("Found " + facetFiles.length + " candidates, iterating and creating descriptors..." );
 			} catch(IOException e) {
 				String message = "Unable to lookup for resources using Spring Context !";
 				logger.error(message, e);
@@ -98,9 +109,10 @@ public class GroovyFacetDescriptorManager implements IFacetDescriptorManager, Ap
 				// -------------------------------
 				name = f.getName();
 				if (name!=null) {
-					name = name.substring(
-							0,
-							name.length() - FACET_SCRIPT_SUFFIX.length());
+					int dotIndx = name.lastIndexOf('.');
+					if (dotIndx!=-1) {
+						name = name.substring(0, dotIndx);
+					}
 				
 					// target Object Type
 					// ------------------					
