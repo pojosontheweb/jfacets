@@ -1,16 +1,4 @@
-JFacets v2.0rc1 Change List
---------------------------
+JFacets v2.1 Change List
+________________________
 
-JFacets :
-* enabled use of plain POJOs for facets : you don't even need to implement the IFacet interface any more !
-* conditions before log4j logs (perf)
-* Added a getFacet(facetName, profileId) method to JFacets : allows easier use when you don't need any target object
-* Refactored WebFacets for greater flexibility (now you can obtain request-scoped JFacets beans from the Spring context, in your Spring apps)
-* Upgraded Spring version, now uses 2.0.2, but still compatible with earlier versions
-* Added access to the FacetDescritor used for retrieving the facets from the facet context (deprecated one method in IFacetContextFactory and added a new one)
-
-JFacets v2.0rc2 Change List
---------------------------
-
-* Added INavigableProfileRepository (and upgraded Acegi integration layer) : enables full nav on the Profiles Graph from IDEs, tools etc.
-* reworked the Swing demo
+* instance facets !
