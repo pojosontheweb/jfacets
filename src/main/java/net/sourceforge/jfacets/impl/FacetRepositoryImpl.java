@@ -13,6 +13,7 @@ import net.sourceforge.jfacets.IFacetContextFactory;
 import net.sourceforge.jfacets.IFacetDescriptorManager;
 import net.sourceforge.jfacets.IFacetFactory;
 import net.sourceforge.jfacets.IFacetRepository;
+import net.sourceforge.jfacets.IInstanceFacet;
 import net.sourceforge.jfacets.IProfile;
 import net.sourceforge.jfacets.IProfileRepository;
 
@@ -197,8 +198,10 @@ public class FacetRepositoryImpl implements IFacetRepository {
 			logger.error("getFacet() : IllegalAccessException caught while trying to get facet !", e1);
 		}
 		if (wrapper.size()>0) {
+			// facet was found ! check if it implements IFacet and/or IInstanceFacet...
 			Object facet = (Object)wrapper.get(0);
 			if (facet instanceof IFacet) {
+				if (logger.isDebugEnabled()) logger.debug("getFacet() : retrieved facet implements IFacet, creating and setting context...");
 				// facet implements IFacet : we create and set the context for it
 				FacetDescriptor fd = null;
 				if (descriptorWrapper.size()==1) {
@@ -206,8 +209,18 @@ public class FacetRepositoryImpl implements IFacetRepository {
 				}
 				IFacetContext ctx = facetContextFactory.create(name, profile, targetObject, fd);
 				((IFacet)facet).setContext(ctx);
+				if (logger.isDebugEnabled()) logger.debug("getFacet() : context created and assigned : " + ctx);
 			}
-			if (logger.isDebugEnabled()) logger.debug("getFacet() : OK returning facet " + facet);
+			if (facet instanceof IInstanceFacet) {
+				if (logger.isDebugEnabled()) logger.debug("getFacet() : facet implements IInstanceFacet, checking wether it matches or not...");
+				if (((IInstanceFacet)facet).matchesTargetObject(targetObject)) {
+					if (logger.isDebugEnabled()) logger.debug("getFacet() : facet matches target object ! we return it");
+				} else {					
+					if (logger.isDebugEnabled()) logger.debug("getFacet() : facet does NOT match target object ! we return null");
+					facet = null;
+				}
+			}
+			if (logger.isDebugEnabled()) logger.debug("getFacet() : OK returning " + facet);
 			return facet;
 		} else {
 			if (logger.isDebugEnabled()) logger.debug("getFacet() : could not find facet with parameters : name='" + name + 

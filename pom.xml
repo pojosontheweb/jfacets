@@ -3,7 +3,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>net.sourceforge.jfacets</groupId>
-    <version>2.0</version>
+    <version>2.1</version>
     <artifactId>jfacets</artifactId>
     <packaging>jar</packaging>
     <name>JFacets</name>
@@ -17,8 +17,8 @@
         </license>
     </licenses>
     <scm>
-        <url>anonymous@jfacets.cvs.sourceforge.net:/cvsroot/jfacets</url>
-        <connection>pserver</connection>
+        <url>scm:svn:https://jfacets.svn.sourceforge.net/svnroot/jfacets/trunk</url>
+        <connection>scm:svn:https://jfacets.svn.sourceforge.net/svnroot/jfacets/trunk</connection>
     </scm>
     <issueManagement>
         <system>SF.net</system>
