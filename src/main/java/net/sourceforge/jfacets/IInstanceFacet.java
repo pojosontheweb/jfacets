@@ -3,13 +3,13 @@ package net.sourceforge.jfacets;
 /**
  * Interface to be implemented by instance facets. Such facets are assigned to 
  * a target object type <b>and</b> must match a given instance in order to be returned 
- * by JFacets to clients.
+ * by JFacets to clients. 
  * <br/>
- * <b>IMPORTANT</b> : You can't assign 2 instance facets with the same name to the same 
- * target type and profile, as this would introduce a duplicate in the facet descriptors. 
- * During lookup, the Facet Repository will stop climbing the 
- * types/profiles graph at the first facet found. Then, only, instance matching is 
- * checked.
+ * Instance facets are created while JFacets climbs up the profiles/types graphs, so 
+ * that it knows if they match or not. If they don't, it's just like they never existed 
+ * in the lookup process.
+ * 
+ *  @author Remi VANKEISBELCK - remi 'at' rvkb.com
  */
 public interface IInstanceFacet {
 	
