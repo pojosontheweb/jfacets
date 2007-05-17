@@ -11,6 +11,7 @@ import net.sourceforge.jfacets.IFacetContextFactory;
 import net.sourceforge.jfacets.IFacetDescriptorManager;
 import net.sourceforge.jfacets.IFacetFactory;
 import net.sourceforge.jfacets.IFacetRepository;
+import net.sourceforge.jfacets.IInitializableFacet;
 import net.sourceforge.jfacets.IInstanceFacet;
 import net.sourceforge.jfacets.IProfile;
 import net.sourceforge.jfacets.IProfileRepository;
@@ -128,6 +129,10 @@ public class FacetRepositoryImpl implements IFacetRepository {
 		if (logger.isDebugEnabled()) logger.debug("trying to retrieve facet name='" + name + "', profileId='" + profile.getId() + "',  targetObject='" + targetObject + "', targetObjectType='" + targetObjectType + "'...");		
 		ArrayList<FacetDescriptor> discardedDescriptors = new ArrayList<FacetDescriptor>();
 		Object facet = climbProfiles(name, profile, targetObject, targetObjectType, discardedDescriptors);
+		if (facet!=null && facet instanceof IInitializableFacet) {
+			if (logger.isDebugEnabled()) logger.debug("facet implements IInitializableFacet : initializing it");
+			((IInitializableFacet)facet).initializeFacet();
+		}
 		if (logger.isDebugEnabled()) logger.debug("returning " + facet);
 		return facet;
 	}
