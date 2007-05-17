@@ -2,3 +2,4 @@ JFacets v2.1 Change List
 ________________________
 
 * instance facets !
+* initializing facets 
