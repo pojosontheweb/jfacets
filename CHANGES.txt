@@ -1,5 +1,4 @@
-JFacets v2.1 Change List
+JFacets v2.1.1 Change List
 ________________________
 
-* instance facets !
-* initializing facets 
+* added getFacetClass method to GroovyFacetDescriptor, useful for IDE purposes (eg. Woko's facet studio)
