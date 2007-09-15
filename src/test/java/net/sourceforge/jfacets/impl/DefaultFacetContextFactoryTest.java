@@ -12,7 +12,7 @@ public class DefaultFacetContextFactoryTest extends TestCase {
 		String name = "test";
 		IProfile profile = new SimpleProfile("demo_user");
 		String target = new String("this is a test");
-		IFacetContext c = dfcf.create(name, profile, target);
+        IFacetContext c = dfcf.create(name, profile, target, null);
 		assertNotNull(c);
 		assertEquals(c.getFacetName(), name);
 		assertEquals(c.getProfile(), profile);
