@@ -3,6 +3,8 @@ package net.sourceforge.jfacets.acegi;
 import java.util.ArrayList;
 
 
+import net.sourceforge.jfacets.log.JFacetsLogger;
+
 import org.acegisecurity.GrantedAuthority;
 import org.acegisecurity.userdetails.UserDetails;
 
@@ -19,7 +21,7 @@ public class HierarchicalUserDetails implements UserDetails {
 	
 	private static final long serialVersionUID = 1L;
 	
-	private static final org.apache.log4j.Logger logger = org.apache.log4j.Logger
+	private static final JFacetsLogger logger = JFacetsLogger
 			.getLogger(HierarchicalUserDetails.class);
 	
 	private UserDetails delegate;

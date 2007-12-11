@@ -8,3 +8,5 @@ JFacets v3.0 Change List
 
 * removal of JFacets.get() static methods
 * removal of IExecutable (no more executable facets, too detailed use case, no need for that)
+* centralization of the logging dependencies in a JFacetsLogger class
+* 

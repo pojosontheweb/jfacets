@@ -2,16 +2,14 @@ package net.sourceforge.jfacets.acegi;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 import net.sourceforge.jfacets.INavigableProfileRepository;
 import net.sourceforge.jfacets.IProfile;
-import net.sourceforge.jfacets.IProfileRepository;
+import net.sourceforge.jfacets.log.JFacetsLogger;
 
 import org.acegisecurity.GrantedAuthority;
 import org.acegisecurity.userdetails.UserDetails;
 import org.acegisecurity.userdetails.UserDetailsService;
-import org.apache.log4j.Logger;
 
 /**
  * The AcegiProfileRepository enable easy use of WebFacets with Acegi. 
@@ -33,7 +31,7 @@ public class AcegiProfileRepository implements INavigableProfileRepository {
 	/** the injected UserDetailsService */
 	private UserDetailsService userDetailsService;
 	
-	private static final Logger logger = Logger
+	private static final JFacetsLogger logger = JFacetsLogger
 			.getLogger(AcegiProfileRepository.class);
 	
 	private HashMap<String, UserDetails> cachedUserDetails 

@@ -4,10 +4,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import org.apache.log4j.Logger;
-
 import net.sourceforge.jfacets.FacetDescriptor;
 import net.sourceforge.jfacets.IFacetDescriptorManager;
+import net.sourceforge.jfacets.log.JFacetsLogger;
 
 /**
  * The MetaFacetDescriptorManager : encapsulates several facet descriptor 
@@ -18,26 +17,10 @@ import net.sourceforge.jfacets.IFacetDescriptorManager;
  */
 public class MetaFacetDescriptorManager implements IFacetDescriptorManager {
 
-	private static final Logger logger = Logger.getLogger(MetaFacetDescriptorManager.class);
+	private static final JFacetsLogger logger = JFacetsLogger.getLogger(MetaFacetDescriptorManager.class);
 	
 	/** the list of managers */
 	private List<IFacetDescriptorManager> managers;
-		
-//	/**
-//	 * Pre-loads all data from registered managers for faster access.
-//	 */
-	public void initialize() {
-//		// aggregate descriptors from all managers...
-//		descriptors = new ArrayList<FacetDescriptor>();
-//		if (logger.isInfoEnabled()) logger.info("Loading descriptors from " + managers.size() + " managers...");
-//		for (IFacetDescriptorManager manager : managers) {
-//			FacetDescriptor[] ds = manager.getDescriptors();
-//			List<FacetDescriptor> tmpList = Arrays.asList(ds);			
-//			descriptors.addAll(tmpList);
-//			if (logger.isDebugEnabled()) logger.debug("Added " + tmpList.size() + " descriptors from manager " + manager);
-//		}
-		logger.info(managers.size() + " managers registered");		
-	}
 	
 	protected List<FacetDescriptor> concatAll() {
 		ArrayList<FacetDescriptor> res = new ArrayList<FacetDescriptor>();
@@ -51,16 +34,6 @@ public class MetaFacetDescriptorManager implements IFacetDescriptorManager {
 	 * null of not found.
 	 */
 	public FacetDescriptor getDescriptor(String name, String profileId, Class targetObjectType) {
-//		FacetDescriptor res = null;
-//		for (FacetDescriptor d : descriptors) {
-//			if (d.getName().equals(name) &&
-//					d.getProfileId().equals(profileId) &&
-//					d.getTargetObjectType().equals(targetObjectType)) {
-//				res = d;
-//				break;
-//			}
-//		}
-//		return res;
 		FacetDescriptor res = null;
 		for (IFacetDescriptorManager m : managers) {
 			res = m.getDescriptor(name, profileId, targetObjectType);
@@ -75,9 +48,6 @@ public class MetaFacetDescriptorManager implements IFacetDescriptorManager {
 	 * Return all descriptors in an array.
 	 */
 	public FacetDescriptor[] getDescriptors() {
-//		FacetDescriptor[] res = new FacetDescriptor[descriptors.size()];
-//		res = (FacetDescriptor[])descriptors.toArray(res);
-//		return res;
 		List<FacetDescriptor> all = concatAll();
 		FacetDescriptor[] res = new FacetDescriptor[all.size()];
 		res = (FacetDescriptor[])all.toArray(res);

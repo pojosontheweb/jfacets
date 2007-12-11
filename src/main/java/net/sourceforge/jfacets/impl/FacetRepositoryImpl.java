@@ -15,8 +15,7 @@ import net.sourceforge.jfacets.IInitializableFacet;
 import net.sourceforge.jfacets.IInstanceFacet;
 import net.sourceforge.jfacets.IProfile;
 import net.sourceforge.jfacets.IProfileRepository;
-
-import org.apache.log4j.Logger;
+import net.sourceforge.jfacets.log.JFacetsLogger;
 
 /**
  * Implementation of the facet repository
@@ -36,7 +35,7 @@ public class FacetRepositoryImpl implements IFacetRepository {
 	private IFacetDescriptorManager facetDescriptorManager;
 	
 	/** the logger */
-	private static final Logger logger = Logger.getLogger(FacetRepositoryImpl.class);
+	private static final JFacetsLogger logger = JFacetsLogger.getLogger(FacetRepositoryImpl.class);
 	
 	/** everything loaded at construction */
 	public FacetRepositoryImpl(IProfileRepository pRepo, 

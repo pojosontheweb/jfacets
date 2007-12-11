@@ -1,9 +1,8 @@
 package net.sourceforge.jfacets.impl;
 
-import org.apache.log4j.Logger;
-
 import net.sourceforge.jfacets.IFacet;
 import net.sourceforge.jfacets.IFacetContext;
+import net.sourceforge.jfacets.log.JFacetsLogger;
 
 /**
  * A default facet that does nothing !
@@ -12,7 +11,7 @@ import net.sourceforge.jfacets.IFacetContext;
  */
 public class DefaultFacet implements IFacet {
 
-	private static final Logger logger = Logger.getLogger(DefaultFacet.class);
+	private static final JFacetsLogger logger = JFacetsLogger.getLogger(DefaultFacet.class);
 	
 	private IFacetContext ctx;
 	

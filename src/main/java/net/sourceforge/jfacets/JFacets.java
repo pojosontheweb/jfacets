@@ -2,7 +2,8 @@ package net.sourceforge.jfacets;
 
 import java.util.HashMap;
 
-import org.apache.log4j.Logger;
+import net.sourceforge.jfacets.log.JFacetsLogger;
+
 
 /**
  * Top-level class for clients : used for accessing and executing facets.
@@ -11,7 +12,7 @@ import org.apache.log4j.Logger;
  */
 public class JFacets {
 	
-	private static final Logger logger = Logger.getLogger(JFacets.class);
+	private static final JFacetsLogger logger = JFacetsLogger.getLogger(JFacets.class);
 			
 	/**
 	 * Indicates wether or not to use cached profiles or not (default=false).

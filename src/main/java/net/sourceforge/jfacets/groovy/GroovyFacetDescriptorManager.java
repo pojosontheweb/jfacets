@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import org.apache.log4j.Logger;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
@@ -15,6 +14,7 @@ import org.springframework.core.io.Resource;
 
 import net.sourceforge.jfacets.FacetDescriptor;
 import net.sourceforge.jfacets.IFacetDescriptorManager;
+import net.sourceforge.jfacets.log.JFacetsLogger;
 
 /**
  * The Facet Descriptor Manager for Groovy Facets, which scans the CLASSPATH for 
@@ -38,7 +38,7 @@ public class GroovyFacetDescriptorManager implements IFacetDescriptorManager, Ap
 	private static final String FACET_SCRIPT_SUFFIX1 = ".facet";
 	private static final String FACET_SCRIPT_SUFFIX2 = ".groovy";
 
-	private static final Logger logger = Logger.getLogger(GroovyFacetDescriptorManager.class); 
+	private static final JFacetsLogger logger = JFacetsLogger.getLogger(GroovyFacetDescriptorManager.class); 
 		
 	/** base packages list to search facet scripts in */
 	private List<String> basePackages;

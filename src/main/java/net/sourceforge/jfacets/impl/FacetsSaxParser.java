@@ -7,8 +7,8 @@ import javax.xml.parsers.*;
 
 
 import net.sourceforge.jfacets.FacetDescriptor;
+import net.sourceforge.jfacets.log.JFacetsLogger;
 
-import org.apache.log4j.Logger;
 import org.xml.sax.*;
 import org.xml.sax.helpers.DefaultHandler;
 
@@ -24,7 +24,7 @@ public class FacetsSaxParser extends DefaultHandler  {
 	/** the number of skipped descriptors */
 	private int nbSkipped = 0;
 	/** the logger to be used */
-	private static final Logger logger = Logger.getLogger(FacetsSaxParser.class);
+	private static final JFacetsLogger logger = JFacetsLogger.getLogger(FacetsSaxParser.class);
 	
 	/**
 	 * Creates object, parses xml from supplied InputStream and creates descriptors

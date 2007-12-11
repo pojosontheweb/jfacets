@@ -9,9 +9,9 @@ import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
-import org.apache.log4j.Logger;
+import net.sourceforge.jfacets.log.JFacetsLogger;
+
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
@@ -28,7 +28,7 @@ import org.springframework.web.context.support.WebApplicationContextUtils;
  */
 public class WebFacetsFilter implements Filter {
 	
-	private static final Logger logger = Logger.getLogger(WebFacetsFilter.class);
+	private static final JFacetsLogger logger = JFacetsLogger.getLogger(WebFacetsFilter.class);
 
 	private String appCtxName = "webFacetsAppCtx.xml";
 	private ApplicationContext applicationContext;

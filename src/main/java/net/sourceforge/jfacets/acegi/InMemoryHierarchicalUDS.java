@@ -7,13 +7,14 @@ import java.util.List;
 import java.util.Properties;
 
 
+import net.sourceforge.jfacets.log.JFacetsLogger;
+
 import org.acegisecurity.GrantedAuthority;
 import org.acegisecurity.GrantedAuthorityImpl;
 import org.acegisecurity.userdetails.UserDetails;
 import org.acegisecurity.userdetails.UsernameNotFoundException;
 import org.acegisecurity.userdetails.memory.InMemoryDaoImpl;
 import org.acegisecurity.userdetails.memory.UserMap;
-import org.apache.log4j.Logger;
 import org.springframework.dao.DataAccessException;
 import org.springframework.util.Assert;
 
@@ -30,7 +31,7 @@ import org.springframework.util.Assert;
 public class InMemoryHierarchicalUDS extends InMemoryDaoImpl implements
 		INavigableHierarchicalUserDetailsService {
 
-	private static final Logger logger = Logger
+	private static final JFacetsLogger logger = JFacetsLogger
 			.getLogger(InMemoryHierarchicalUDS.class);
 
 	private Properties roleProperties;

@@ -4,10 +4,8 @@ import java.security.Principal;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.apache.log4j.Logger;
-
-import net.sourceforge.jfacets.IFacet;
 import net.sourceforge.jfacets.JFacets;
+import net.sourceforge.jfacets.log.JFacetsLogger;
 
 /**
  * WebFacets is an extension of the <code>JFacets</code> class that is 
@@ -18,7 +16,7 @@ import net.sourceforge.jfacets.JFacets;
  */
 public class WebFacets extends JFacets {
 	
-	private static final Logger logger = Logger.getLogger(WebFacets.class);
+	private static final JFacetsLogger logger = JFacetsLogger.getLogger(WebFacets.class);
 		
 	/**
 	 * Return the WebFacets bean associated to passed 

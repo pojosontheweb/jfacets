@@ -8,8 +8,8 @@ import javax.xml.parsers.ParserConfigurationException;
 
 import net.sourceforge.jfacets.FacetDescriptor;
 import net.sourceforge.jfacets.IFacetDescriptorManager;
+import net.sourceforge.jfacets.log.JFacetsLogger;
 
-import org.apache.log4j.Logger;
 import org.xml.sax.SAXException;
 
 /**
@@ -21,7 +21,7 @@ import org.xml.sax.SAXException;
  */
 public class FacetDescriptorManager implements IFacetDescriptorManager {
 
-	private static final Logger logger = Logger.getLogger(FacetDescriptorManager.class);
+	private static final JFacetsLogger logger = JFacetsLogger.getLogger(FacetDescriptorManager.class);
 	
 	/** an array of all loaded descriptors */
 	private FacetDescriptor[] descriptors = null;

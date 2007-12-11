@@ -6,10 +6,8 @@ import groovy.lang.Script;
 import java.io.File;
 
 import net.sourceforge.jfacets.FacetDescriptor;
-import net.sourceforge.jfacets.IFacet;
 import net.sourceforge.jfacets.IFacetFactory;
-
-import org.apache.log4j.Logger;
+import net.sourceforge.jfacets.log.JFacetsLogger;
 
 /**
  * The GroovyFacetFactory, responsible of creating Groovy Facets. 
@@ -19,8 +17,8 @@ import org.apache.log4j.Logger;
  */
 public class GroovyFacetFactory implements IFacetFactory {
 
-	private static final Logger logger = 
-		Logger.getLogger(GroovyFacetFactory.class);
+	private static final JFacetsLogger logger = 
+		JFacetsLogger.getLogger(GroovyFacetFactory.class);
 	
 	private static GroovyClassLoader groovyClassLoader;
 	

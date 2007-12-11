@@ -1,10 +1,8 @@
 package net.sourceforge.jfacets.impl;
 
-import org.apache.log4j.Logger;
-
 import net.sourceforge.jfacets.FacetDescriptor;
-import net.sourceforge.jfacets.IFacet;
 import net.sourceforge.jfacets.IFacetFactory;
+import net.sourceforge.jfacets.log.JFacetsLogger;
 
 /**
  * Default facet factory implementation : creates facets using <code>Class.newInstance()</code>.
@@ -13,7 +11,7 @@ import net.sourceforge.jfacets.IFacetFactory;
  */
 public class DefaultFacetFactory implements IFacetFactory {
 
-	private static final Logger logger = Logger.getLogger(DefaultFacetFactory.class);
+	private static final JFacetsLogger logger = JFacetsLogger.getLogger(DefaultFacetFactory.class);
 	
 	/**
 	 * Creates the facet for passed descriptor using <code>Class.newInstance()</code>. 

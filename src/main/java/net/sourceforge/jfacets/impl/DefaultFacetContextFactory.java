@@ -1,11 +1,10 @@
 package net.sourceforge.jfacets.impl;
 
-import org.apache.log4j.Logger;
-
 import net.sourceforge.jfacets.FacetDescriptor;
 import net.sourceforge.jfacets.IFacetContext;
 import net.sourceforge.jfacets.IFacetContextFactory;
 import net.sourceforge.jfacets.IProfile;
+import net.sourceforge.jfacets.log.JFacetsLogger;
 
 /**
  * Default facet context factory implementation
@@ -14,7 +13,7 @@ import net.sourceforge.jfacets.IProfile;
  */
 public class DefaultFacetContextFactory implements IFacetContextFactory {
 
-	private static final Logger logger = Logger.getLogger(DefaultFacetContextFactory.class);
+	private static final JFacetsLogger logger = JFacetsLogger.getLogger(DefaultFacetContextFactory.class);
 	
 	/**
 	 * Creates a DefaultFacetContext for passed parameters, with a null facetDescriptor.

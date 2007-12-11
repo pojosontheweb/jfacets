@@ -6,8 +6,8 @@ import java.util.List;
 
 import net.sourceforge.jfacets.FacetDescriptor;
 import net.sourceforge.jfacets.IFacetDescriptorManager;
+import net.sourceforge.jfacets.log.JFacetsLogger;
 
-import org.apache.log4j.Logger;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
@@ -31,7 +31,7 @@ public class AnnotatedFacetDescriptorManager implements IFacetDescriptorManager,
 
 	private static final String SEPARATOR = "/";
 
-	private static final Logger logger = Logger.getLogger(AnnotatedFacetDescriptorManager.class); 
+	private static final JFacetsLogger logger = JFacetsLogger.getLogger(AnnotatedFacetDescriptorManager.class); 
 		
 	/** base packages list to search facet scripts in */
 	private List<String> basePackages;

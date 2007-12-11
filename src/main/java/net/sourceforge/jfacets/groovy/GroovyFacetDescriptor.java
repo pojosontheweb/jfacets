@@ -5,10 +5,10 @@ import groovy.lang.GroovyClassLoader;
 import java.io.File;
 import java.io.IOException;
 
-import org.apache.log4j.Logger;
 import org.codehaus.groovy.control.CompilationFailedException;
 
 import net.sourceforge.jfacets.FacetDescriptor;
+import net.sourceforge.jfacets.log.JFacetsLogger;
 
 /**
  * An extension of the FacetDescriptor class for 
@@ -17,7 +17,7 @@ import net.sourceforge.jfacets.FacetDescriptor;
  */
 public class GroovyFacetDescriptor extends FacetDescriptor {
 	
-	private static final Logger logger = Logger.getLogger(GroovyFacetDescriptor.class);
+	private static final JFacetsLogger logger = JFacetsLogger.getLogger(GroovyFacetDescriptor.class);
 	
 	private static GroovyClassLoader groovyClassLoader = new GroovyClassLoader(); 
 	private Class facetClass;
