@@ -1,26 +1,17 @@
 package net.sourceforge.jfacets;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 import org.apache.log4j.Logger;
-import org.springframework.beans.factory.InitializingBean;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 /**
  * Top-level class for clients : used for accessing and executing facets.
  * 
  * @author Remi VANKEISBELCK - rvkb.com (remi 'at' rvkb.com)
  */
-public class JFacets implements InitializingBean {
+public class JFacets {
 	
 	private static final Logger logger = Logger.getLogger(JFacets.class);
-
-	/**
-	 * The Spring app context
-	 */
-	private static ClassPathXmlApplicationContext appContext;
 			
 	/**
 	 * Indicates wether or not to use cached profiles or not (default=false).
@@ -176,88 +167,6 @@ public class JFacets implements InitializingBean {
 		
 		return getFacet(facetName, profileId, new Object());
 	}
-	
-	/**
-	 * Tries to execute an <b>executable facet</b> for passed parameters. The facet 
-	 * must implement <code>IExecutable</code>
-	 * @param facetName The name of the facet
-	 * @param profileId The id of the profile
-	 * @param targetObject The target object
-	 * @return The result of the facet's <code>execute()</code> method
-	 * @throws RuntimeException if the facet could not be retrieved 
-	 * @throws ClassCastException if the retrieved facet does not implement the <code>IExecutable</code> interface
-	 */
-	public Object execFacet(
-			String facetName, 
-			String profileId, 
-			Object targetObject)  {
-		
-		if (logger.isInfoEnabled()) logger.info("Attempting to execute facet...");
-		
-		Object facet = getFacet(facetName, profileId, targetObject);
-		if (facet != null) {
-			if (facet instanceof IExecutable) {
-				Object res = ((IExecutable)facet).execute();
-				if (logger.isInfoEnabled()) logger.info("Facet executed : res = " + res);
-				return res;
-			} else {
-				logger.warn("Retrieved facet is not executable ! throwing ClassCastException !");
-				throw new ClassCastException("Trying to execute facet of class " + facet.getClass() + " but it doesn't implement IExecutable !");
-			}
-		} else {
-			throw new RuntimeException("Could not find facet to execute for passed params (" + facetName + ", " + profileId + " " + targetObject.getClass() + ")");
-		}
-	}
-	
-	/**
-	 * Tries to execute an <b>executable facet</b> for passed parameters. The facet 
-	 * must implement <code>IExecutable</code>
-	 * @param facetName The name of the facet
-	 * @param profileId The id of the profile
-	 * @param targetObject The target object (can be null)
-	 * @param targetObjectClass The target object's class
-	 * @return The result of the facet's <code>execute()</code> method
-	 * @throws RuntimeException if the facet could not be retrieved 
-	 * @throws ClassCastException if the retrieved facet does not implement the <code>IExecutable</code> interface
-	 */
-	public Object execFacet(
-			String facetName, 
-			String profileId, 
-			Object targetObject,
-			Class targetObjectClass)  {
-		
-		if (logger.isInfoEnabled()) logger.info("Attempting to execute facet...");
-		
-		Object facet = getFacet(facetName, profileId, targetObject, targetObjectClass);
-		if (facet != null) {
-			if (facet instanceof IExecutable) {
-				Object res = ((IExecutable)facet).execute();
-				if (logger.isInfoEnabled()) logger.info("Facet executed : res = " + res);
-				return res;
-			} else {
-				logger.warn("Retrieved facet is not executable ! throwing ClassCastException !");
-				throw new ClassCastException("Trying to execute facet of class " + facet.getClass() + " but it doesn't implement IExecutable !");
-			}
-		} else {
-			throw new RuntimeException("Could not find facet to execute for passed params (" + facetName + ", " + profileId + " " + targetObject.getClass() + ")");
-		}
-	}
-	
-	/**
-	 * Execs a facet for passed parameters. This version passes a fake Object 
-	 * as the target object of the facet. It can be used when you need only the 
-	 * profile assignation, but don't really care about the target object.
-	 * @param facetName The name of the facet
-	 * @param profileId The id of the profile
-	 * @return the result of facet execution
-	 */
-	public Object execFacet(
-			String facetName, 
-			String profileId) {
-		
-		if (logger.isInfoEnabled()) logger.info("Attempting to execute facet for key (" + facetName + ", " + profileId + " with no target object (dummy Object will be used instead)");
-		return execFacet(facetName, profileId, new Object());
-	}
 
 	public IFacetRepository getFacetRepository() {
 		return facetRepository;
@@ -271,24 +180,6 @@ public class JFacets implements InitializingBean {
 		return facetRepository.getProfileRepository();
 	}
 	
-	/**
-	 * Utility method for getting the bean without dealing with Spring
-	 * @param contextPath The path of the Spring context to be used (e.g. "com/mypkg/myContext.xml")
-	 */
-	public static JFacets get(String contextPath) {
-		appContext = new ClassPathXmlApplicationContext(
-		        new String[] {contextPath});
-		return (JFacets)appContext.getBean("jFacets");
-	}
-	
-	/**
-	 * Utility method for getting the bean without dealing with Spring. 
-	 * Uses the "jFacetsAppCtx.xml" context in default package.
-	 */	
-	public static JFacets get() {
-		return get("jFacetsAppCtx.xml");
-	}
-
 	public String getFallbackProfileId() {
 		return fallbackProfileId;
 	}

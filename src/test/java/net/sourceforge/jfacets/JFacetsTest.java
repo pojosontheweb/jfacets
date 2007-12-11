@@ -6,16 +6,10 @@ import junit.framework.TestCase;
 /**
  * ugly ! should write real unit tests !
  */
-public class JFacetsTest extends TestCase {
+public class JFacetsTest extends JFacetsSpringTestBase {
 	
-	private JFacets jFacets;
-	
-	private static final String CONTEXT_PATH = "jFacetsTestAppCtx.xml";
-	
-	protected void setUp() throws Exception {
-		super.setUp();
-		jFacets = JFacets.get(CONTEXT_PATH);
-		assertNotNull(jFacets);
+	public JFacetsTest() {
+		super("jFacetsTestAppCtx.xml");
 	}
 
 	public void test1GetFacetRepository() {

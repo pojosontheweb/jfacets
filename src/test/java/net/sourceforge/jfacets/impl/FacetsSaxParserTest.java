@@ -19,7 +19,7 @@ public class FacetsSaxParserTest extends TestCase {
 		assertNotNull(p);
 		FacetDescriptor[] descriptors = p.getDescriptors();
 		assertNotNull(descriptors);
-		assertEquals(descriptors.length, 6);
+		assertEquals(descriptors.length, 3);
 	}
 
 }

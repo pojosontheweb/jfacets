@@ -15,7 +15,7 @@ public class FacetDescriptorManagerTest extends TestCase {
 			e.printStackTrace();
 		}
 		assertNotNull(manager.getDescriptors());
-		assertEquals(manager.getDescriptors().length, 6);
+		assertEquals(manager.getDescriptors().length, 3);
 	}
 	
 }

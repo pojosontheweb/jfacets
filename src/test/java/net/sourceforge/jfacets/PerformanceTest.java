@@ -1,17 +1,9 @@
 package net.sourceforge.jfacets;
 
-import junit.framework.TestCase;
-
-public class PerformanceTest extends TestCase {
+public class PerformanceTest extends JFacetsSpringTestBase {
 	
-	private JFacets jFacets;
-	
-	private static final String CONTEXT_PATH = "jFacetsTestAppCtx.xml";
-	
-	protected void setUp() throws Exception {
-		super.setUp();
-		jFacets = JFacets.get(CONTEXT_PATH);
-		assertNotNull(jFacets);
+	public PerformanceTest() {
+		super("jFacetsTestAppCtx.xml");
 	}
 
 	public void testLotsOfInvocations() {

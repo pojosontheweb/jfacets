@@ -9,6 +9,8 @@ import javax.swing.JPanel;
 import javax.swing.WindowConstants;
 
 import org.apache.log4j.BasicConfigurator;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import net.sourceforge.jfacets.JFacets;
 
@@ -19,7 +21,11 @@ public class Main {
 		BasicConfigurator.configure();
 
 		// get hold of a JFacets instance
-		JFacets jFacets = JFacets.get("/net/sourceforge/jfacets/examples/swing/swingDemoAppCtx.xml");
+		ApplicationContext applicationContext = 
+			new ClassPathXmlApplicationContext(
+					new String[]{
+							"/net/sourceforge/jfacets/examples/swing/swingDemoAppCtx.xml"});
+		JFacets jFacets = (JFacets)applicationContext.getBean("jFacets");
 
 		// our target object 
 		Date currentDate = new Date();

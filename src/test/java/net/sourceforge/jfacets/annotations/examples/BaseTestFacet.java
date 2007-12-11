@@ -1,10 +1,9 @@
 package net.sourceforge.jfacets.annotations.examples;
 
-import net.sourceforge.jfacets.IExecutable;
 import net.sourceforge.jfacets.IFacet;
 import net.sourceforge.jfacets.IFacetContext;
 
-public abstract class BaseTestFacet implements IFacet, IExecutable {
+public abstract class BaseTestFacet implements IFacet {
 
 	private IFacetContext ctx;
 	

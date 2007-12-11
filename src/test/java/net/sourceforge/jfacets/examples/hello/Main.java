@@ -2,6 +2,9 @@ package net.sourceforge.jfacets.examples.hello;
 
 import java.util.Date;
 
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
 import net.sourceforge.jfacets.JFacets;
 
 public class Main {
@@ -12,8 +15,12 @@ public class Main {
 		Date targetObject = new Date();		
 
 		// get the JFacets bean
-		JFacets jFacets = JFacets.get("net/sourceforge/jfacets/examples/hello/helloFacetsAppCtx.xml");
-
+		ApplicationContext applicationContext = 
+			new ClassPathXmlApplicationContext(
+					new String[]{
+							"net/sourceforge/jfacets/examples/hello/helloFacetsAppCtx.xml"});
+		JFacets jFacets = (JFacets)applicationContext.getBean("jFacets");
+		
 		// get the hello facet for ivar (standard_role)...
 		BaseHelloFacet helloFacet =
 			(BaseHelloFacet)jFacets.getFacet("hello", "ivar", targetObject);

@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import org.apache.log4j.BasicConfigurator;
 
 import net.sourceforge.jfacets.JFacets;
+import net.sourceforge.jfacets.JFacetsSpringTestBase;
 import junit.framework.TestCase;
 
 /**
@@ -12,22 +13,12 @@ import junit.framework.TestCase;
  * Long and String objects. See the instanceFacetsAppCtx.xml test 
  * context, and the test-instance-facets folder, for more infos.
  */
-public class InstanceFacetsTest extends TestCase {
+public class InstanceFacetsTest extends JFacetsSpringTestBase {
 	
-	private JFacets jFacets;
-	
-	private static final String CONTEXT_PATH = "instanceFacetsAppCtx.xml";
-	
-//	static {
-//		BasicConfigurator.configure();
-//	}
-	
-	protected void setUp() throws Exception {
-		super.setUp();
-		jFacets = JFacets.get(CONTEXT_PATH);
-		assertNotNull(jFacets);
+	public InstanceFacetsTest() {
+		super("instanceFacetsAppCtx.xml");
 	}
-
+	
 	public void testGetFacetLongPositive() {
 		Long l = 10l; 
 		Object facet = jFacets.getFacet("test", "ivar", l);

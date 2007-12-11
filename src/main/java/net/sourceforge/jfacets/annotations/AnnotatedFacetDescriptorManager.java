@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import net.sourceforge.jfacets.FacetDescriptor;
-import net.sourceforge.jfacets.IFacet;
 import net.sourceforge.jfacets.IFacetDescriptorManager;
 
 import org.apache.log4j.Logger;

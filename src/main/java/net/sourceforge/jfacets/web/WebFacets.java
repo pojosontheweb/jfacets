@@ -45,28 +45,6 @@ public class WebFacets extends JFacets {
 	}
 	
 	/**
-	 * Execs a facet for current user (uses request.getUserPrincipal()).
-	 */
-	public Object execFacet(String facetName, Object targetObject, Class targetObjectClass, HttpServletRequest request) {
-		return super.execFacet(facetName, getProfileId(request), targetObject, targetObjectClass);
-	}
-
-	/**
-	 * Execs a facet for current user (uses request.getUserPrincipal()).
-	 */
-	public Object execFacet(String facetName, Object targetObject, HttpServletRequest request) {
-		return super.execFacet(facetName, getProfileId(request), targetObject);
-	}
-	
-	/**
-	 * Execs a facet for current user (uses request.getUserPrincipal()), using a 
-	 * dummy Object as the target object (for use without target objects).
-	 */
-	public Object execFacet(String facetName, HttpServletRequest request) {
-		return super.execFacet(facetName, getProfileId(request));
-	}	
-
-	/**
 	 * Retrieves a facet for current user (uses request.getUserPrincipal()).
 	 */
 	public Object getFacet(String facetName, Object targetObject, Class targetObjectClass, HttpServletRequest request) {

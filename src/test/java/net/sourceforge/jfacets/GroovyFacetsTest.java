@@ -1,30 +1,21 @@
 package net.sourceforge.jfacets;
 
-import net.sourceforge.jfacets.JFacets;
-
-import junit.framework.TestCase;
-
 /**
  * ugly ! should write real unit tests !
  */
-public class GroovyFacetsTest extends TestCase {
+public class GroovyFacetsTest extends JFacetsSpringTestBase {
 	
-	private JFacets jFacets;
-	
-	protected void setUp() throws Exception {
-		super.setUp();
-		jFacets = JFacets.get("groovyFacetsAppCtx.xml");
-		assertNotNull(jFacets);
+	public GroovyFacetsTest() {
+		super("groovyFacetsAppCtx.xml");
 	}
 
 	public void testGetFacet() {
 		Object facet = jFacets.getFacet("test", "john", new Long(3));
 		assertNotNull(facet);
-	}
-
-	public void testExecFacet() {
-		Object res = jFacets.execFacet("test", "ivar", new Long(3));
-		assertNotNull(res);
+		assertEquals("invalid class name", "MyGroovyTestFacet1", facet.getClass().getSimpleName());
+		facet = jFacets.getFacet("test", "standard_role", new Long(3));
+		assertNotNull(facet);
+		assertEquals("invalid class name", "MyGroovyTestFacet2", facet.getClass().getSimpleName());
 	}
 
 	public void testGetFacetRepository() {

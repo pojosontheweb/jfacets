@@ -1,1 +1,3 @@
-return "Root Profile bs"
+class MyGroovyTestFacet2 {
+
+}

@@ -7,8 +7,6 @@ import java.util.List;
 import java.util.Properties;
 
 
-import net.sourceforge.jfacets.usersandroles.UsersAndRolesProfileRepository;
-
 import org.acegisecurity.GrantedAuthority;
 import org.acegisecurity.GrantedAuthorityImpl;
 import org.acegisecurity.userdetails.UserDetails;

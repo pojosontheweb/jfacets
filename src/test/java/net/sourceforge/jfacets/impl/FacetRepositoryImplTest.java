@@ -60,27 +60,27 @@ public class FacetRepositoryImplTest extends TestCase {
 		// ivar / Object
 		FacetDescriptor[] descriptors = facetRepo.getDescriptors(ivar, Object.class);
 		assertNotNull(descriptors);
-		assertEquals(descriptors.length, 2);
+		assertEquals(2, descriptors.length);
 
 		// ivar / Number
 		descriptors = facetRepo.getDescriptors(ivar, Number.class);
 		assertNotNull(descriptors);
-		assertEquals(descriptors.length, 4);
+		assertEquals(2, descriptors.length);
 
 		// john / Object
 		descriptors = facetRepo.getDescriptors(john, Object.class);
 		assertNotNull(descriptors);
-		assertEquals(descriptors.length, 2);
+		assertEquals(2, descriptors.length);
 
 		// root_pfl / Object
 		descriptors = facetRepo.getDescriptors(root_profile, Object.class);
 		assertNotNull(descriptors);
-		assertEquals(descriptors.length, 1);
+		assertEquals(1, descriptors.length);
 
 		// root_pfl / Number
 		descriptors = facetRepo.getDescriptors(root_profile, Number.class);
 		assertNotNull(descriptors);
-		assertEquals(descriptors.length, 2);
+		assertEquals(1, descriptors.length);
 	}
 
 	public void testGetFacetFactory() {
@@ -104,24 +104,12 @@ public class FacetRepositoryImplTest extends TestCase {
 		assertNotNull(facet);
 		assertEquals(facet.getClass(), DefaultFacet.class);
 		
-		// (test, ivar, Long(3))
-		target = new Long(3);
-		facet = facetRepo.getFacet(name, profile, target);
-		assertNotNull(facet);
-		assertEquals(facet.getClass(), DefaultExecutableFacet.class);
-		
 		// (test, john, "blah")
 		profile = profileRepo.getProfileById("john");
 		target = new String("blah");
 		facet = facetRepo.getFacet(name, profile, target);
 		assertNotNull(facet);
 		assertEquals(facet.getClass(), DefaultFacet.class);
-		
-		// (test, john, Long(3))
-		target = new Long(3);
-		facet = facetRepo.getFacet(name, profile, target);
-		assertNotNull(facet);
-		assertEquals(facet.getClass(), DefaultExecutableFacet.class);
 	}
 
 	public void testGetFacetStringIProfileObjectClass() {
@@ -134,13 +122,6 @@ public class FacetRepositoryImplTest extends TestCase {
 		assertNotNull(facet);
 		assertEquals(facet.getClass(), DefaultFacet.class);
 		
-		// (test, ivar, l, Long.class)
-		target = new Long(3);
-		targetClass = target.getClass();
-		facet = facetRepo.getFacet(name, profile, target, targetClass);
-		assertNotNull(facet);
-		assertEquals(facet.getClass(), DefaultExecutableFacet.class);
-		
 		// (test, john, "blah", String.class)
 		profile = profileRepo.getProfileById("john");
 		target = "blah";
@@ -149,26 +130,12 @@ public class FacetRepositoryImplTest extends TestCase {
 		assertNotNull(facet);
 		assertEquals(facet.getClass(), DefaultFacet.class);
 		
-		// (test, john, 3, Long.class)
-		target = new Long(3);
-		targetClass = target.getClass();
-		facet = facetRepo.getFacet(name, profile, target, targetClass);
-		assertNotNull(facet);
-		assertEquals(facet.getClass(), DefaultExecutableFacet.class);
-		
 		// test, john, null, String.class)
 		target = null;
 		targetClass = String.class;
 		facet = facetRepo.getFacet(name, profile, target, targetClass);
 		assertNotNull(facet);
 		assertEquals(facet.getClass(), DefaultFacet.class);
-		
-		// test, john, null, Long.class)
-		target = null;
-		targetClass = Long.class;
-		facet = facetRepo.getFacet(name, profile, target, targetClass);
-		assertNotNull(facet);
-		assertEquals(facet.getClass(), DefaultExecutableFacet.class);
 		
 	}
 

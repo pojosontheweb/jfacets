@@ -1,8 +1,5 @@
 <facets>
   <facet name="test" profile="root_profile" object_type="java.lang.Object" class="net.sourceforge.jfacets.impl.DefaultFacet"/>
-  <facet name="test" profile="root_profile" object_type="java.lang.Number" class="net.sourceforge.jfacets.impl.DefaultExecutableFacet"/>
   <facet name="test" profile="standard_role" object_type="java.lang.Object" class="net.sourceforge.jfacets.impl.DefaultFacet"/>
-  <facet name="test" profile="standard_role" object_type="java.lang.Number" class="net.sourceforge.jfacets.impl.DefaultExecutableFacet"/>
   <facet name="test" profile="admin_role" object_type="java.lang.Object" class="net.sourceforge.jfacets.impl.DefaultFacet"/>
-  <facet name="test" profile="admin_role" object_type="java.lang.Number" class="net.sourceforge.jfacets.impl.DefaultExecutableFacet"/>
 </facets>

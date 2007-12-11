@@ -55,11 +55,8 @@ public class GroovyFacetFactory implements IFacetFactory {
 				// script file contains a valid class def, we return it
 				if (logger.isDebugEnabled()) logger.debug("Facet found and created from IFacet class in file " + scriptFile.getAbsolutePath() + ", returning " + res);
 			} else {
-				// script does not contain a valid class, try a script wrapper
-				GroovyScriptWrapperFacet wrapperFacet = new GroovyScriptWrapperFacet();
-				wrapperFacet.setScriptFile(scriptFile);
-				res = wrapperFacet;
-				if (logger.isDebugEnabled()) logger.debug("script wrapper facet created OK for file '" + scriptFile.getAbsolutePath() + ", returning " + res);
+				// script does not contain a valid class, return null
+				logger.error("file does not contain a valid class def : " + scriptFile.getAbsolutePath() + ", returning null !");				
 			}
 			return res;
 						

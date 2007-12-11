@@ -2,3 +2,9 @@ JFacets v2.1.1 Change List
 ________________________
 
 * added getFacetClass method to GroovyFacetDescriptor, useful for IDE purposes (eg. Woko's facet studio)
+
+JFacets v3.0 Change List
+------------------------
+
+* removal of JFacets.get() static methods
+* removal of IExecutable (no more executable facets, too detailed use case, no need for that)
