@@ -8,7 +8,7 @@ package net.sourceforge.jfacets;
  * in order to operate. The Navigable PR is used only for IDE purposes where 
  * you want to be able to get all informations about the Profiles Graph.
  * 
- * @author RŽmi VANKEISBELCK - remi 'at' rvkb.com
+ * @author Remi VANKEISBELCK - remi 'at' rvkb.com
  */
 public interface INavigableProfileRepository extends IProfileRepository {
 

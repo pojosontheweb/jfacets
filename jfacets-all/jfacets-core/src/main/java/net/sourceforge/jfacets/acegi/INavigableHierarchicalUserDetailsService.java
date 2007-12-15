@@ -7,7 +7,7 @@ import org.acegisecurity.userdetails.UserDetails;
  * An extension of the {@link IHierarchicalUserDetailsService} that allows 
  * full navigation in the users/roles graph.
  * 
- * @author RŽmi VANKEISBELCK - remi 'at' rvkb.com
+ * @author Remi VANKEISBELCK - remi 'at' rvkb.com
  *
  */
 public interface INavigableHierarchicalUserDetailsService extends
