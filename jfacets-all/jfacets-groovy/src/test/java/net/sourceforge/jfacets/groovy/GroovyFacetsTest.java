@@ -1,4 +1,6 @@
-package net.sourceforge.jfacets;
+package net.sourceforge.jfacets.groovy;
+
+import net.sourceforge.jfacets.JFacetsSpringTestBase;
 
 /**
  * ugly ! should write real unit tests !

@@ -1,0 +1,7 @@
+<facets>
+    <facet name="test" profile="root_profile" object_type="java.lang.Long" class="net.sourceforge.jfacets.instancefacets.LongPositive"/>
+    <facet name="test" profile="root_profile" object_type="java.lang.String" class="net.sourceforge.jfacets.instancefacets.HugeString"/>
+    <facet name="test" profile="root_profile" object_type="java.util.ArrayList" class="net.sourceforge.jfacets.instancefacets.ArrayListWith2Items"/>
+    <facet name="test" profile="root_profile" object_type="java.util.Collection" class="net.sourceforge.jfacets.instancefacets.FacetCollection"/>
+    <facet name="test" profile="root_profile" object_type="java.util.List" class="net.sourceforge.jfacets.instancefacets.ListWith1Item"/>
+</facets>

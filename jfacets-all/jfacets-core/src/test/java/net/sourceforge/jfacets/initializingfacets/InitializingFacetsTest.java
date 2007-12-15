@@ -1,10 +1,6 @@
 package net.sourceforge.jfacets.initializingfacets;
 
-import org.apache.log4j.BasicConfigurator;
-
-import net.sourceforge.jfacets.JFacets;
 import net.sourceforge.jfacets.JFacetsSpringTestBase;
-import junit.framework.TestCase;
 
 /**
  * Tests retrievement of instance facets for 
@@ -18,7 +14,7 @@ public class InitializingFacetsTest extends JFacetsSpringTestBase {
 	}
 	
 	public void testInitFacet() {
-		BaseInitFacet f = (BaseInitFacet)jFacets.getFacet("test", "ivar", "blah");
+		TestInitFacet f = (TestInitFacet)jFacets.getFacet("test", "ivar", "blah");
 		assertNotNull(f);
 		assertTrue(f.isInitialized());
 	}

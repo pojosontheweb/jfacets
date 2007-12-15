@@ -47,7 +47,7 @@ public class InstanceFacetsTest extends JFacetsSpringTestBase {
 		ArrayList<String> al = new ArrayList<String>();
 		Object facet = jFacets.getFacet("test", "ivar", al);
 		assertNotNull(facet);
-		assertEquals(facet.getClass().getName(), "TestFacetCollection");
+		assertEquals(facet.getClass(), FacetCollection.class);
 	}
 	
 	public void testGetFacetArrayList1Elem() {
@@ -55,7 +55,7 @@ public class InstanceFacetsTest extends JFacetsSpringTestBase {
 		al.add("elem1");
 		Object facet = jFacets.getFacet("test", "ivar", al);
 		assertNotNull(facet);
-		assertEquals(facet.getClass().getName(), "TestFacetList");
+		assertEquals(facet.getClass(), ListWith1Item.class);
 	}
 	
 	public void testGetFacetArrayList2Elems() {
@@ -64,7 +64,7 @@ public class InstanceFacetsTest extends JFacetsSpringTestBase {
 		al.add("elem2");
 		Object facet = jFacets.getFacet("test", "ivar", al);
 		assertNotNull(facet);
-		assertEquals(facet.getClass().getName(), "TestFacetArrayList");
+		assertEquals(facet.getClass(), ArrayListWith2Items.class);
 	}
 
 }

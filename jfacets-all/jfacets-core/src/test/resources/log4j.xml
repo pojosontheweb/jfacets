@@ -38,7 +38,7 @@
     <priority value="WARN"/>
   </category>
 
-  <category name="jfacets.*">
+  <category name="net.sourceforge.jfacets.*">
     <priority value="INFO"/>
   </category>
   

@@ -8,24 +8,17 @@
 	</bean>
 
 	<bean id="facetDescriptorManager" singleton="true"
-			class="net.sourceforge.jfacets.groovy.GroovyFacetDescriptorManager"
-			init-method="initialize">
-		<!-- A list of base packages to search into for Groovy Facets Discovery -->
-		<constructor-arg index="0">
-			<list>
-				<value>test-init-facets</value>
-			</list>
-		</constructor-arg>
+			class="net.sourceforge.jfacets.impl.FacetDescriptorManager">
+		<constructor-arg index="0"><value>test-init-facets.xml</value></constructor-arg>
 	</bean>
 	
 	<bean id="fallbackFacetFactory" singleton="true"  
 			class="net.sourceforge.jfacets.impl.DefaultFacetFactory">
 	</bean>
 
-	<bean id="facetFactory" singleton="true"  
-			class="net.sourceforge.jfacets.groovy.GroovyFacetFactory">
-		<property name="fallbackFactory"><ref bean="fallbackFacetFactory"/></property>			
-	</bean>
+	<bean id="facetFactory" singleton="true"
+			class="net.sourceforge.jfacets.impl.DefaultFacetFactory">
+    </bean>
 
 	<bean id="facetContextFactory" singleton="true"  
 			class="net.sourceforge.jfacets.impl.DefaultFacetContextFactory">

@@ -2,36 +2,14 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <groupId>net.sourceforge.jfacets</groupId>
-    <version>3.0</version>
-    <artifactId>jfacets</artifactId>
+    <artifactId>jfacets-core</artifactId>
     <packaging>jar</packaging>
-    <name>JFacets</name>
-    <url>http://sf.net/projects/jfacets</url>
-    <description>JFacets profile-based framework</description>
-    <licenses>
-        <license>
-            <name>LGPL</name>
-            <url>http://www.gnu.org/licenses/lgpl.html</url>
-            <distribution>repo</distribution>
-        </license>
-    </licenses>
-    <scm>
-        <url>scm:svn:https://jfacets.svn.sourceforge.net/svnroot/jfacets/trunk</url>
-        <connection>scm:svn:https://jfacets.svn.sourceforge.net/svnroot/jfacets/trunk</connection>
-    </scm>
-    <issueManagement>
-        <system>SF.net</system>
-        <url>http://sourceforge.net/tracker/?group_id=154666</url>
-    </issueManagement>
-    <developers>
-	    <developer>
-	      <id>vankeisb</id>
-	      <name>Remi VANKEISBELCK</name>
-	      <email>remi@rvkb.com</email>
-	      <url>http://www.rvkb.com</url>
-	    </developer>
-	</developers>
+    <name>JFacets Core</name>
+    <parent>
+    	<groupId>net.sourceforge.jfacets</groupId>
+    	<artifactId>jfacets-all</artifactId>
+    	<version>3.0</version>
+  	</parent>
     <dependencies>
         <dependency>
             <groupId>org.springframework</groupId>
@@ -39,22 +17,10 @@
             <version>2.0.2</version>
         </dependency>
         <dependency>
-            <groupId>log4j</groupId>
-            <artifactId>log4j</artifactId>
-            <version>1.2.12</version>
-        </dependency>
-        <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>jsp-api</artifactId>
             <version>2.0</version>
             <scope>provided</scope>
-            <optional>true</optional>
-        </dependency>
-        <dependency>
-            <groupId>groovy</groupId>
-            <artifactId>groovy</artifactId>
-            <version>1.0-jsr-06</version>
-			<scope>provided</scope>
             <optional>true</optional>
         </dependency>
 		<dependency>	
@@ -71,24 +37,5 @@
 			<scope>test</scope>
 		</dependency>
     </dependencies>
-    <build>
-    	<defaultGoal>install</defaultGoal>
-        <plugins>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<configuration>
-					<source>1.5</source>
-					<target>1.5</target>
-				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-javadoc-plugin</artifactId>			  
-				<configuration>
-					<show>private</show>
-			  	</configuration>
-			</plugin>
-        </plugins>
-    </build>
+    <build/>
 </project>

@@ -2,8 +2,9 @@ package net.sourceforge.jfacets.initializingfacets;
 
 import net.sourceforge.jfacets.IFacet;
 import net.sourceforge.jfacets.IFacetContext;
+import net.sourceforge.jfacets.IInitializableFacet;
 
-public class BaseInitFacet implements IFacet {
+public class TestInitFacet implements IFacet, IInitializableFacet {
 
 	private IFacetContext context;
 	
@@ -25,4 +26,7 @@ public class BaseInitFacet implements IFacet {
 		this.initialized = initialized;
 	}
 
+    public void initializeFacet() {
+        setInitialized(true);
+    }
 }
