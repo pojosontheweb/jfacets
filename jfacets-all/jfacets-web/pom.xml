@@ -2,24 +2,26 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <artifactId>jfacets-core</artifactId>
+    <artifactId>jfacets-web</artifactId>
     <packaging>jar</packaging>
-    <name>JFacets Core</name>
+    <name>WebFacets</name>
     <parent>
     	<groupId>net.sourceforge.jfacets</groupId>
     	<artifactId>jfacets-all</artifactId>
     	<version>3.0</version>
   	</parent>
     <dependencies>
+	<dependency>
+		<groupId>net.sourceforge.jfacets</groupId>
+		<artifactId>jfacets-core</artifactId>
+		<version>3.0</version>
+	</dependency>
         <dependency>
-            <groupId>log4j</groupId>
-            <artifactId>log4j</artifactId>
-            <version>1.2.12</version>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring</artifactId>
-            <version>2.0.2</version>
+            <groupId>javax.servlet</groupId>
+            <artifactId>jsp-api</artifactId>
+            <version>2.0</version>
+            <scope>provided</scope>
+            <optional>true</optional>
         </dependency>
     </dependencies>
     <build/>
