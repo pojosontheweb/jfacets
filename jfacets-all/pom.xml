@@ -10,8 +10,8 @@
     <modules>
         <module>jfacets-core</module>
         <module>jfacets-groovy</module>
-        <!--module>jfacets-annotations</module>
-        <module>jfacets-web</module -->
+        <module>jfacets-acegi</module>
+        <!-- module>jfacets-web</module -->
     </modules>
     <url>http://sf.net/projects/jfacets</url>
     <description>JFacets profile-based framework</description>
