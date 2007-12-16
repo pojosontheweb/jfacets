@@ -40,7 +40,7 @@ support for annotated Java facets.
 		<constructor-arg index="3"><ref bean="facetDescriptorManager"/></constructor-arg>
 	</bean>	
 	
-	<bean id="jFacets" scope="singleton" class="net.sourceforge.jfacets.JFacets">
+	<bean id="jFacets" scope="singleton" class="net.sourceforge.jfacets.JFacets" init-method="afterPropertiesSet">
 		<property name="facetRepository"><ref bean="facetRepository"/></property>
 	</bean>	
 

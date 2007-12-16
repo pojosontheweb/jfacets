@@ -121,7 +121,7 @@ Configurable stuff in there :
 		<constructor-arg index="1"><ref bean="webFacets"/></constructor-arg>
 	</bean>
 	
-	<bean id="webFacets" scope="request" class="net.sourceforge.jfacets.web.WebFacets">
+	<bean id="webFacets" scope="request" class="net.sourceforge.jfacets.web.WebFacets" init-method="afterPropertiesSet">
 		<property name="facetRepository"><ref bean="facetRepository"/></property>
 	</bean>	
 	

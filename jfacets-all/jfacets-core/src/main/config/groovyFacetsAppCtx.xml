@@ -112,7 +112,7 @@ Configurable stuff in there :
 	<!-- here.                              -->
 	<!--                                    -->
 
-	<bean id="jFacets" scope="singleton" class="net.sourceforge.jfacets.JFacets">
+	<bean id="jFacets" scope="singleton" class="net.sourceforge.jfacets.JFacets" init-method="afterPropertiesSet">
 		<property name="facetRepository"><ref bean="facetRepository"/></property>
 	</bean>
 	
