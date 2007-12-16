@@ -16,14 +16,6 @@ public class DefaultFacetContextFactory implements IFacetContextFactory {
 	private static final JFacetsLogger logger = JFacetsLogger.getLogger(DefaultFacetContextFactory.class);
 	
 	/**
-	 * Creates a DefaultFacetContext for passed parameters, with a null facetDescriptor.
-	 * @deprecated use the one that takes the facetDescriptor as the 4th param 
-	 */
-	public IFacetContext create(String facetName, IProfile profile, Object targetObject) {
-		return create(facetName, profile, targetObject, null);
-	}
-
-	/**
 	 * Creates a DefaultFacetContext for passed parameters. 
 	 */
 	public IFacetContext create(String facetName, IProfile profile, Object targetObject, FacetDescriptor facetDescriptor) {

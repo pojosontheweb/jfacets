@@ -27,15 +27,7 @@ public class WebFacetContextFactory implements IFacetContextFactory {
 	public WebFacetContextFactory(WebObjectsHolder requestResponseHolder) {
 		this.rrh = requestResponseHolder;
 	}
-	
-	/**
-	 * Create a {@link DefaultWebFacetContext} context using current request, response and servletcontext, and null facetDescriptor
-	 * @deprecated use the one that takes the facetDescriptor as the 4th param
-	 */
-	public IFacetContext create(String facetName, IProfile profile, Object targetObject) {
-		return create(facetName, profile, targetObject, null);
-	}
-	
+		
 	/**
 	 * Create a {@link DefaultWebFacetContext} context using current request, response and servletcontext
 	 */
