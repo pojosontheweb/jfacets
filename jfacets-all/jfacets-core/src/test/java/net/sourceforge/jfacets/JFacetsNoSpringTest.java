@@ -25,14 +25,12 @@ public class JFacetsNoSpringTest extends TestCase {
 
     @Override
     protected void setUp() throws Exception {
-        IFacetDescriptorManager fdm = new FacetDescriptorManager("/test-instance-facets.xml");
-        IFacetContextFactory fcf = new DefaultFacetContextFactory();
-        IFacetFactory ff = new DefaultFacetFactory();
-        IProfileRepository pr = new SimpleProfileRepository();
-        IFacetRepository fr = new FacetRepositoryImpl(pr, ff, fcf, fdm);
-        jFacets = new JFacets();
-        jFacets.setFacetRepository(fr);
-        jFacets.afterPropertiesSet();
+        JFacetsBuilder builder = new JFacetsBuilder();
+        jFacets = builder.setFacetContextFactory(new DefaultFacetContextFactory()).
+                setFacetDescriptorManager(new FacetDescriptorManager("/test-instance-facets.xml")).
+                setFacetFactory(new DefaultFacetFactory()).
+                setProfileRepository(new SimpleProfileRepository()).
+                build();
     }
 
     public void testGetFacetLongPositive() {
