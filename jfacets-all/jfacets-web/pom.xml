@@ -6,16 +6,21 @@
     <packaging>jar</packaging>
     <name>WebFacets</name>
     <parent>
-    	<groupId>net.sourceforge.jfacets</groupId>
-    	<artifactId>jfacets-all</artifactId>
-    	<version>3.0</version>
-  	</parent>
+        <groupId>net.sourceforge.jfacets</groupId>
+        <artifactId>jfacets-all</artifactId>
+        <version>3.0</version>
+    </parent>
     <dependencies>
-	<dependency>
-		<groupId>net.sourceforge.jfacets</groupId>
-		<artifactId>jfacets-core</artifactId>
-		<version>3.0</version>
-	</dependency>
+        <dependency>
+            <groupId>net.sourceforge.jfacets</groupId>
+            <artifactId>jfacets-core</artifactId>
+            <version>3.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring</artifactId>
+            <version>2.0.2</version>
+        </dependency>
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>jsp-api</artifactId>

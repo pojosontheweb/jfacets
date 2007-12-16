@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans-2.0.dtd">
+
+<!-- 
+
+A Spring Context for JFacets that provides 
+support for annotated Java facets.
+ 
+ -->
+
+<beans>
+
+	<bean id="profileRepository" scope="singleton"
+			class="net.sourceforge.jfacets.simpleprofiles.SimpleProfileRepository">
+	</bean>
+	
+	<bean id="facetDescriptorManager" scope="singleton"
+			class="net.sourceforge.jfacets.annotations.AnnotatedFacetDescriptorManager"
+			init-method="initialize">
+		<constructor-arg index="0">
+			<list>
+				<value>net.sourceforge.jfacets.annotations.examples</value>
+			</list>
+		</constructor-arg>
+	</bean>
+
+	<bean id="facetFactory" scope="singleton"
+			class="net.sourceforge.jfacets.impl.DefaultFacetFactory">
+	</bean>
+
+	<bean id="facetContextFactory" scope="singleton"
+			class="net.sourceforge.jfacets.impl.DefaultFacetContextFactory">
+	</bean>
+	
+	<bean id="facetRepository" scope="singleton"
+			class="net.sourceforge.jfacets.impl.FacetRepositoryImpl">
+		<constructor-arg index="0"><ref bean="profileRepository"/></constructor-arg>
+		<constructor-arg index="1"><ref bean="facetFactory"/></constructor-arg>
+		<constructor-arg index="2"><ref bean="facetContextFactory"/></constructor-arg>
+		<constructor-arg index="3"><ref bean="facetDescriptorManager"/></constructor-arg>
+	</bean>	
+	
+	<bean id="jFacets" scope="singleton" class="net.sourceforge.jfacets.JFacets">
+		<property name="facetRepository"><ref bean="facetRepository"/></property>
+	</bean>	
+
+</beans>
