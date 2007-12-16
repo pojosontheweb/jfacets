@@ -103,13 +103,4 @@ public class WebFacetsFilter implements Filter {
 	public void destroy() {
 	}
 
-	/**
-	 * Return the WebFacets instance for passed request 
-	 * @deprecated use WebFacets.get(request) or WebFacets.get() instead !
-	 */
-	public static WebFacets getJFacets(HttpServletRequest request) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 }
