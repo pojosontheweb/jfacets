@@ -5,7 +5,7 @@ import net.sourceforge.jfacets.IProfile;
 /**
  * A Profile for encapsulating roles.
  * 
- * @author VANKEISBELCK R�mi
+ * @author VANKEISBELCK Remi
  *
  */
 public interface IRoleProfile extends IProfile {

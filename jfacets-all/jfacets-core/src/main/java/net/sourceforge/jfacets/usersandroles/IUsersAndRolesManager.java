@@ -5,7 +5,7 @@ package net.sourceforge.jfacets.usersandroles;
  * Developers using the Users/Roles profile repo should implement this interface 
  * and inject their object into the UsersAndRolesProfileRepository.
  * 
- * @author VANKEISBELCK R�mi
+ * @author VANKEISBELCK Remi
  *
  */
 public interface IUsersAndRolesManager {
