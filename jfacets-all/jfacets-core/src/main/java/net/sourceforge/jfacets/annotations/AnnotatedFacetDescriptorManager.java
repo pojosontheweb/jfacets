@@ -45,14 +45,6 @@ public class AnnotatedFacetDescriptorManager implements IFacetDescriptorManager 
 	}
 
 	/**
-	 * Convert a file name to a class name
-	 */
-	private static String filenameToClassname(final String filename) {
-		return filename.substring(0, filename.lastIndexOf(".class")).replace(
-				'/', '.').replace('\\', '.');
-	}
-
-	/**
 	 * Loads all available Facet Descriptors by scanning the CLASSPATH with
 	 * specified base packages.
 	 */

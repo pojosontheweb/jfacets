@@ -3,9 +3,9 @@ package net.sourceforge.jfacets.initializingfacets;
 import net.sourceforge.jfacets.JFacetsSpringTestBase;
 
 /**
- * Tests retrievement of instance facets for 
- * Long and String objects. See the instanceFacetsAppCtx.xml test 
- * context, and the test-instance-facets folder, for more infos.
+ * Test for instance facets : verifies that facets implementing
+ * IInstanceFacet are well initialized when obtained from the
+ * JFacets bean.
  */
 public class InitializingFacetsTest extends JFacetsSpringTestBase {
 	

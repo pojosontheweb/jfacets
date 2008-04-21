@@ -4,7 +4,8 @@ import net.sourceforge.jfacets.JFacets;
 import junit.framework.TestCase;
 
 /**
- * ugly ! should write real unit tests !
+ * Very basic unit test that checks if the profile repo and facet repo
+ * are well assembled when wiring with Spring.
  */
 public class JFacetsTest extends JFacetsSpringTestBase {
 	

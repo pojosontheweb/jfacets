@@ -10,8 +10,7 @@ import junit.framework.TestCase;
 
 /**
  * Tests retrievement of instance facets for 
- * Long and String objects. See the instanceFacetsAppCtx.xml test 
- * context, and the test-instance-facets folder, for more infos.
+ * Long and String objects. 
  */
 public class InstanceFacetsTest extends JFacetsSpringTestBase {
 	

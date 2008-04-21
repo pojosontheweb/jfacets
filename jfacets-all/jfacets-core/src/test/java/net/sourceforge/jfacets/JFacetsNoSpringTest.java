@@ -13,11 +13,7 @@ import net.sourceforge.jfacets.instancefacets.ArrayListWith2Items;
 import java.util.ArrayList;
 
 /**
- * Created by IntelliJ IDEA.
- * User: vankeisb
- * Date: 16 déc. 2007
- * Time: 14:30:56
- * To change this template use File | Settings | File Templates.
+ * Tests JFacets without Spring wiring (pure J2SE, no deps)
  */
 public class JFacetsNoSpringTest extends TestCase {
 

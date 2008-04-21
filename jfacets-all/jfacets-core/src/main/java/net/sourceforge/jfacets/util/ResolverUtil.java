@@ -30,7 +30,7 @@ import java.util.jar.JarInputStream;
 
 /**
  * Utility for finding classes in the classpath. Borrowed from the Stripes Framework :
- * http://www.stripesframework.org ! Thanks to Tim for that :-)
+ * http://www.stripesframework.org ! Thanks to Tim for that very useful piece of code :-)
  *
  * @author Tim Fennell
  */

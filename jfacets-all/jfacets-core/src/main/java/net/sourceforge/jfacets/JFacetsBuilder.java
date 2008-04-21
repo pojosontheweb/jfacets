@@ -4,7 +4,8 @@ import net.sourceforge.jfacets.impl.FacetRepositoryImpl;
 import net.sourceforge.jfacets.log.JFacetsLogger;
 
 /**
- * Builder that eases creation and wiring of the JFacets bean. Typical usage looks like this :
+ * Builder that eases creation and wiring of the JFacets bean when not relying on an
+ * external IoC container. Typical usage looks like this :
  * <br/>
  * <pre>JFacetsBuilder builder = new JFacetsBuilder();
         jFacets = builder.setFacetContextFactory(new DefaultFacetContextFactory()).
@@ -12,6 +13,7 @@ import net.sourceforge.jfacets.log.JFacetsLogger;
                 setFacetFactory(new DefaultFacetFactory()).
                 setProfileRepository(new SimpleProfileRepository()).
                 build();</pre>
+ * <br/>
  */
 public class JFacetsBuilder {
 
