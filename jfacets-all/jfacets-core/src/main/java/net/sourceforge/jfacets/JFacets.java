@@ -6,7 +6,8 @@ import net.sourceforge.jfacets.log.JFacetsLogger;
 
 
 /**
- * Top-level class for clients : used for accessing and executing facets.
+ * Top-level class for clients : used for retrieving facets at run time (see the getFacet(...) methods).
+ *
  * The lifecycle of instances of this class goes like :
  * <ul>
  *  <li>create object using no-args constructor</li>
