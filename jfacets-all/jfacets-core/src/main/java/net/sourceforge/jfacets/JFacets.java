@@ -1,13 +1,22 @@
 package net.sourceforge.jfacets;
 
-import java.util.HashMap;
+import java.util.concurrent.ConcurrentHashMap;
 
 import net.sourceforge.jfacets.log.JFacetsLogger;
 
 
 /**
  * Top-level class for clients : used for accessing and executing facets.
- * 
+ * The lifecycle of instances of this class goes like :
+ * <ul>
+ *  <li>create object using no-args constructor</li>
+ *  <li>set <code>facetRepository</code> to be used for facet lookup</li>
+ *  <li>invoke the <code>afterPropertiesSet</code> init method</li>
+ * </ul>
+ *
+ * The preferred way to obtain a JFacets instance is to use the
+ * {@link net.sourceforge.jfacets.JFacetsBuilder}.
+ *
  * @author Remi VANKEISBELCK - rvkb.com (remi 'at' rvkb.com)
  */
 public class JFacets {
@@ -22,7 +31,7 @@ public class JFacets {
 	/**
 	 * The cache of already obtained profiles.
 	 */
-	private HashMap<String, IProfile> profilesCache;
+	private ConcurrentHashMap<String, IProfile> profilesCache;
 	
 	/** 
 	 * The fallback profile to be used in case 
@@ -42,6 +51,7 @@ public class JFacets {
 	/**
 	 * Retrieve a profile for passed ID. 
 	 * Checks for fallback profile and profiles cache if needed.
+     * @return the profile for passed ID if found, <code>null</code> if no such profile
 	 */
 	protected IProfile getProfile(String profileId) {
 		
@@ -190,12 +200,15 @@ public class JFacets {
 	}
 
 	/**
-	 * Involed by Spring after all props have been set. Simply 
-	 * creates the profiles cache map if required.
+	 * To be invoked after all props have been set. Checks that required components have been
+     * injected, and creates the profiles cache map if required.
 	 */
-	public void afterPropertiesSet() throws Exception {
+	public void afterPropertiesSet() {
+        if (facetRepository==null) {
+            throw new IllegalStateException("FacetRepository has not been set !");
+        }
 		if (useProfilesCache) {
-			profilesCache = new HashMap<String, IProfile>();
+			profilesCache = new ConcurrentHashMap<String, IProfile>();
 			if (logger.isInfoEnabled()) logger.info("Using profiles cache !");
 		}
 	}
@@ -237,7 +250,7 @@ public class JFacets {
 	 * Return true if all fields of the descriptor are filled in (name, 
 	 * profileId, targetObjectType and facetClass), false otherwise.
 	 */
-	public static boolean isDescriptorOk(FacetDescriptor fd) {
+	private static boolean isDescriptorOk(FacetDescriptor fd) {
 		return fd.getName()!=null && fd.getProfileId()!=null && fd.getTargetObjectType()!=null && fd.getFacetClass()!=null;
 	}
 	

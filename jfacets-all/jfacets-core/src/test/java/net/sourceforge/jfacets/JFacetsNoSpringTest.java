@@ -21,11 +21,9 @@ public class JFacetsNoSpringTest extends TestCase {
 
     @Override
     protected void setUp() throws Exception {
-        JFacetsBuilder builder = new JFacetsBuilder();
-        jFacets = builder.setFacetContextFactory(new DefaultFacetContextFactory()).
-                setFacetDescriptorManager(new FacetDescriptorManager("/test-instance-facets.xml")).
-                setFacetFactory(new DefaultFacetFactory()).
-                setProfileRepository(new SimpleProfileRepository()).
+        jFacets = new JFacetsBuilder(
+                new SimpleProfileRepository(),
+                new FacetDescriptorManager("/test-instance-facets.xml")).
                 build();
     }
 
