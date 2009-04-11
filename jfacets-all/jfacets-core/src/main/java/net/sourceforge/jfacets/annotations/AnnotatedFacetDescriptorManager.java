@@ -24,8 +24,6 @@ import java.util.ArrayList;
  */
 public class AnnotatedFacetDescriptorManager implements IFacetDescriptorManager {
 
-	private static final String SEPARATOR = "/";
-
 	private static final JFacetsLogger logger = JFacetsLogger.getLogger(AnnotatedFacetDescriptorManager.class);
 
 	/** base packages list to search facet scripts in */
