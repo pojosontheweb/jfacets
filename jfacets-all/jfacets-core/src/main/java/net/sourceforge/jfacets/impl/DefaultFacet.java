@@ -15,12 +15,12 @@ public class DefaultFacet implements IFacet {
 	
 	private IFacetContext ctx;
 	
-	public void setContext(IFacetContext ctx) {
+	public void setFacetContext(IFacetContext ctx) {
 		this.ctx = ctx;
 		if (logger.isDebugEnabled()) logger.debug("Context set : " + ctx);
 	}
 
-	public IFacetContext getContext() {
+	public IFacetContext getFacetContext() {
 		return ctx;
 	}
 

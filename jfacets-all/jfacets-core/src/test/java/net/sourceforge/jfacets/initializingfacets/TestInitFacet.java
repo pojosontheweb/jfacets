@@ -10,11 +10,11 @@ public class TestInitFacet implements IFacet, IInitializableFacet {
 	
 	private boolean initialized = false;
 
-	public IFacetContext getContext() {
+	public IFacetContext getFacetContext() {
 		return context;
 	}
 
-	public void setContext(IFacetContext context) {
+	public void setFacetContext(IFacetContext context) {
 		this.context = context;
 	}
 

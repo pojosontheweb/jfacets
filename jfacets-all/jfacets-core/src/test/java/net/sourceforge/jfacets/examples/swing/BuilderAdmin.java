@@ -6,9 +6,6 @@ import java.util.Date;
 
 import javax.swing.JButton;
 import javax.swing.JFormattedTextField;
-import javax.swing.JMenu;
-import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JTextPane;
 
@@ -19,7 +16,7 @@ public class BuilderAdmin extends PanelBuilderFacet {
 
 	public JPanel buildPanel() {
 		// get hold of the date (passed as the target object of this facet)
-		Date date = (Date)getContext().getTargetObject();
+		Date date = (Date) getFacetContext().getTargetObject();
 		
 		// and build the JPanel to be returned for profile "admin_role"
 		JTextPane textPane = new JTextPane();

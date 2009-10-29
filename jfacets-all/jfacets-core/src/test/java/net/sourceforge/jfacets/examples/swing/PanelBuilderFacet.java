@@ -11,11 +11,11 @@ public abstract class PanelBuilderFacet implements IFacet {
 	
 	public abstract JPanel buildPanel();
 
-	public IFacetContext getContext() {
+	public IFacetContext getFacetContext() {
 		return facetContext;
 	}
 
-	public void setContext(IFacetContext ctx) {
+	public void setFacetContext(IFacetContext ctx) {
 		this.facetContext = ctx;
 	}
 

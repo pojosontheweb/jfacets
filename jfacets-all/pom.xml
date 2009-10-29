@@ -3,7 +3,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>net.sourceforge.jfacets</groupId>
-    <version>3.0</version>
+    <version>3.1</version>
     <artifactId>jfacets-all</artifactId>
     <packaging>pom</packaging>
     <name>JFacets</name>

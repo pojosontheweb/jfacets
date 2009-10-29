@@ -6,7 +6,7 @@ import net.sourceforge.jfacets.annotations.FacetKey;
 public class TestFacet2 extends BaseTestFacet {
 
 	public Object execute() {
-		System.out.println("Integer passed = " + getContext().getTargetObject());
+		System.out.println("Integer passed = " + getFacetContext().getTargetObject());
 		return null;
 	}
 

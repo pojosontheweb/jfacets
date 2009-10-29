@@ -196,7 +196,7 @@ public class FacetRepositoryImpl implements IFacetRepository {
 				if (logger.isDebugEnabled()) logger.debug("implements IFacet, creating and setting context...");
 				// facet implements IFacet : we create and set the context for it
 				IFacetContext ctx = facetContextFactory.create(facetName, profile, targetObject, fd);
-				((IFacet)facet).setContext(ctx);
+				((IFacet)facet).setFacetContext(ctx);
 				if (logger.isDebugEnabled()) logger.debug("context created and assigned : " + ctx);
 			}
 			

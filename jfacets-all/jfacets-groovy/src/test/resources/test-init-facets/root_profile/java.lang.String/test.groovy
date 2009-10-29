@@ -1,10 +1,9 @@
 import net.sourceforge.jfacets.IInitializableFacet;
-import net.sourceforge.jfacets.initializingfacets.BaseInitFacet;
 
-public class InitFacetImpl extends BaseInitFacet implements IInitializableFacet {
+public class InitFacetImpl implements IInitializableFacet {
 
 	public void initializeFacet() {
-		setInitialized(true);
+		initialized = true;
 	}
 	
 }

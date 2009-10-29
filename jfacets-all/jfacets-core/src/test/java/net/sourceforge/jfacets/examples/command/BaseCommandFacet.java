@@ -7,14 +7,14 @@ public abstract class BaseCommandFacet implements IFacet {
 
 	private IFacetContext ctx;
 	
-	public void setContext(IFacetContext ctx) {
+	public void setFacetContext(IFacetContext ctx) {
 		this.ctx = ctx;
 	}
 
-	public IFacetContext getContext() {
+	public IFacetContext getFacetContext() {
 		return ctx;
 	}
 
 	public abstract Object execute();
-	
+
 }

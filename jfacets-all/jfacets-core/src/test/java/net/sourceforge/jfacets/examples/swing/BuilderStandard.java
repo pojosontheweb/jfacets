@@ -16,7 +16,7 @@ public class BuilderStandard extends PanelBuilderFacet {
 
 	public JPanel buildPanel() {
 		// get hold of the date (passed as the target object of this facet)
-		Date date = (Date)getContext().getTargetObject();
+		Date date = (Date) getFacetContext().getTargetObject();
 		
 		// and build the JPanel to be returned for profile "admin_role"
 		JTextPane textPane = new JTextPane();

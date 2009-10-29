@@ -8,11 +8,11 @@ public abstract class BaseInstanceFacet implements IFacet, IInstanceFacet {
 
     private IFacetContext facetContext;
 
-    public void setContext(IFacetContext ctx) {
+    public void setFacetContext(IFacetContext ctx) {
         facetContext = ctx;
     }
 
-    public IFacetContext getContext() {
+    public IFacetContext getFacetContext() {
         return facetContext;
     }
 

@@ -15,7 +15,7 @@ public class ViewDateRootProfile extends BaseHelloFacet {
 
 	public String hello() {
 		// get the facet's target object (a Date)
-		Date d = (Date)getContext().getTargetObject();
+		Date d = (Date) getFacetContext().getTargetObject();
 		// return a dummy message
 		return "Hello ! the time is " + d.toString();
 	}

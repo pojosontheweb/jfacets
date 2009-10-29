@@ -2,7 +2,7 @@ import net.sourceforge.jfacets.*;
 
 class TestFacetList implements IFacet, IInstanceFacet {
 
-	IFacetContext context;
+	IFacetContext facetContext;
 	
 	public boolean matchesTargetObject(Object targetObject) {
 		return targetObject.size()==1;

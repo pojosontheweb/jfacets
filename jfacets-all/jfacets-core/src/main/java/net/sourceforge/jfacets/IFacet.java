@@ -12,11 +12,11 @@ public interface IFacet {
 	 * Invoked by the framework, passing it the facet context
 	 * @param ctx the facet fontext
 	 */
-	public void setContext(IFacetContext ctx);
+	public void setFacetContext(IFacetContext ctx);
 	
 	/**
 	 * Return the facet context
 	 */
-	public IFacetContext getContext();
+	public IFacetContext getFacetContext();
 
 }

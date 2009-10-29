@@ -8,7 +8,7 @@ import net.sourceforge.jfacets.annotations.FacetKey;
 public class TestFacet3 extends BaseTestFacet {
 
 	public Object execute() {
-		System.out.println("Date passed = " + getContext().getTargetObject());
+		System.out.println("Date passed = " + getFacetContext().getTargetObject());
 		return null;
 	}
 

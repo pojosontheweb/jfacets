@@ -10,7 +10,7 @@ import net.sourceforge.jfacets.annotations.FacetKey;
 public class ViewDateAdmin extends BaseHelloFacet {
 
 	public String hello() {
-		Date date = (Date)getContext().getTargetObject();
+		Date date = (Date) getFacetContext().getTargetObject();
 		return "Hello, admin ! here is the time, in ms = " + date.getTime();
 	}
 
