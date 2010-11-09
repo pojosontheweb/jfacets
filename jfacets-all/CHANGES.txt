@@ -15,3 +15,4 @@ JFacets v3.1 Change List
 ------------------------
 
 * renamed get/setContext methods to get/setFacetContext to avoid collisions with other frameworks
+* changed license : now Apache v2

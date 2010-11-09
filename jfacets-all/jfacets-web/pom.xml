@@ -14,7 +14,7 @@
         <dependency>
             <groupId>net.sourceforge.jfacets</groupId>
             <artifactId>jfacets-core</artifactId>
-            <version>3.1</version>
+            <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
