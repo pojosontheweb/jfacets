@@ -19,7 +19,9 @@ support for annotated Java facets.
 			init-method="initialize">
 		<constructor-arg index="0">
 			<list>
-				<value>net.sourceforge.jfacets.annotations.examples</value>
+                <value>net.sourceforge.jfacets.annotations.examples</value>
+                <value>net.sourceforge.jfacets.annotations.pkg2</value>
+                <value>net.sourceforge.jfacets.annotations.pkg1</value>
 			</list>
 		</constructor-arg>
 	</bean>

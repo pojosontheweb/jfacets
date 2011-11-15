@@ -34,82 +34,125 @@ public class AnnotatedFacetDescriptorManager implements IFacetDescriptorManager 
 
 	private int nbDesc = 0;
 
+    /**
+     * duplicated key policy : throw exception by default
+     */
+    private DuplicatedKeyPolicyType duplicatedKeyPolicy = DuplicatedKeyPolicyType.ThrowException;
+
 	/**
-	 * Create the manager and set base packages.
-	 * @param basePackages
+	 * Create the manager and set base packages that will be scanned for
+     * annotated facets.
+	 * @param basePackages the packages as a list of Strings
 	 */
 	public AnnotatedFacetDescriptorManager(List<String> basePackages) {
 		this.basePackages = basePackages;
 	}
 
-	/**
+    /**
+     * Set the duplicated key policy. This allows to enable duplicated keys, or to throw an exception when
+     * dups are found.
+     * @param policyType the policy to use
+     * @return this for chained calls
+     */
+    public AnnotatedFacetDescriptorManager setDuplicatedKeyPolicy(DuplicatedKeyPolicyType policyType) {
+        this.duplicatedKeyPolicy = policyType;
+        return this;
+    }
+
+    public DuplicatedKeyPolicyType getDuplicatedKeyPolicy() {
+        return duplicatedKeyPolicy;
+    }
+
+    /**
 	 * Loads all available Facet Descriptors by scanning the CLASSPATH with
 	 * specified base packages.
+     * @return this for chained calls
 	 */
 	@SuppressWarnings("unchecked")
-	public void initialize() {
+	public AnnotatedFacetDescriptorManager initialize() {
         if (basePackages==null || basePackages.size()==0) {
             logger.warn("No base packages have been defined, as a result no annotated facet can be found ! " +
                     "Please set the basePackages property of the AnnotatedFacetDescriptorManager.");
         }
-        String[] pkgs = new String[basePackages.size()];
-        pkgs = basePackages.toArray(pkgs);
-        ResolverUtil<Object> resolverUtil = new ResolverUtil<Object>();
-        resolverUtil.findAnnotated(FacetKey.class, pkgs);
-        resolverUtil.findAnnotated(FacetKeyList.class, pkgs);
-        for (Class<? extends Object> clazz : resolverUtil.getClasses()) {
-            FacetKeyList fkl = (FacetKeyList)clazz.getAnnotation(FacetKeyList.class);
-             if (fkl!=null) {
+        for (String pkg : basePackages) {
+            if (logger.isDebugEnabled()) {
+                logger.debug("Scanning package " + pkg);
+            }
+            ResolverUtil<Object> resolverUtil = new ResolverUtil<Object>();
+            resolverUtil.findAnnotated(FacetKey.class, pkg);
+            resolverUtil.findAnnotated(FacetKeyList.class, pkg);
+            for (Class<?> clazz : resolverUtil.getClasses()) {
+                FacetKeyList fkl = clazz.getAnnotation(FacetKeyList.class);
+                 if (fkl!=null) {
 
-                 // multiple facet keys
-                 // -------------------
-                 FacetKey[] facetKeys = fkl.keys();
-                 for (int j = 0; j < facetKeys.length; j++)
-                     createDescriptorForAnnotation(facetKeys[j], clazz);
-
-             } else {
-                 // no multiple key, try single one...
-                 FacetKey annot = (FacetKey)clazz.getAnnotation(FacetKey.class);
-                 if (annot!=null) {
-
-                     // single facet key
-                     // ----------------
-                     createDescriptorForAnnotation(annot, clazz);
+                     // multiple facet keys
+                     // -------------------
+                     FacetKey[] facetKeys = fkl.keys();
+                     for (FacetKey facetKey : facetKeys) {
+                         createDescriptorForAnnotation(facetKey, clazz);
+                     }
 
                  } else {
-                     // not annotated
-                     if (logger.isDebugEnabled()) logger.debug("Skipped class " + clazz + ", does not have the @FacetKey annot");
+                     // no multiple key, try single one...
+                     FacetKey annot = clazz.getAnnotation(FacetKey.class);
+                     if (annot!=null) {
+
+                         // single facet key
+                         // ----------------
+                         createDescriptorForAnnotation(annot, clazz);
+
+                     } else {
+                         // not annotated
+                         if (logger.isDebugEnabled()) logger.debug("Skipped class " + clazz + ", does not have the @FacetKey annot");
+                     }
                  }
-             }
+            }
         }
 		if (logger.isInfoEnabled()) logger.info("init OK, " + nbDesc + " descriptors loaded");
+        return this;
 	}
 
-	/**
+
+    /**
 	 * Create a descriptor for passed FacetKey and facet class and adds it to the descriptors list
 	 * @param annot The FacetKey annotation
 	 * @param facetClass The facet implementation class
-	 * @return The freshly created descriptor if ok, null if error (missing infos in the facet key)
 	 */
-	private FacetDescriptor createDescriptorForAnnotation(FacetKey annot, Class facetClass) {
+	private void createDescriptorForAnnotation(FacetKey annot, Class facetClass) {
 		// annotated, create and add descriptor
 		String name = annot.name();
 		String profileId = annot.profileId();
-		Class targetObjectType = annot.targetObjectType();
+		Class<?> targetObjectType = annot.targetObjectType();
 		if (name!=null && profileId!=null && targetObjectType!=null) {
-			FacetDescriptor descriptor = new FacetDescriptor();
-			descriptor.setName(name);
-			descriptor.setProfileId(profileId);
-			descriptor.setTargetObjectType(targetObjectType);
-			descriptor.setFacetClass(facetClass);
-			descriptors.add(descriptor);
-			nbDesc++;
-			if (logger.isDebugEnabled()) logger.debug("Created and added descriptor " + descriptor + " for annotated facet class " + facetClass);
-			return descriptor;
+
+            // check if a descriptor already exists with the same values and handle
+            // as told by the duplicated key policy
+            FacetDescriptor dup = getDescriptor(name, profileId, targetObjectType);
+            if (dup!=null) {
+                switch(duplicatedKeyPolicy) {
+                    case ThrowException : {
+                        throw new DuplicatedKeyException(name, profileId, targetObjectType);
+                    }
+                    case FirstScannedWins : {
+                        // ignore the facet, just log a message
+                        logger.info("Ignoring duplicated facet key (" + name + "," + profileId + "," + targetObjectType +
+                            "), policy is set to first scanned wins");
+                    }
+                    break;
+                }
+            } else {
+                FacetDescriptor descriptor = new FacetDescriptor();
+                descriptor.setName(name);
+                descriptor.setProfileId(profileId);
+                descriptor.setTargetObjectType(targetObjectType);
+                descriptor.setFacetClass(facetClass);
+                descriptors.add(descriptor);
+                nbDesc++;
+                if (logger.isDebugEnabled()) logger.debug("Created and added descriptor " + descriptor + " for annotated facet class " + facetClass);
+            }
 		} else {
 			// missing annot attributes
 			logger.warn("Class " + facetClass + " has the @FacetKey annot but some attributes are missing ! name, profileId and targetObjectType are required");
-			return null;
 		}
 	}
 
