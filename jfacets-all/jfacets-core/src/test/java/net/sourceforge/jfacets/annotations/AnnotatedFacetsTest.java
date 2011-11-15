@@ -45,11 +45,4 @@ public class AnnotatedFacetsTest extends JFacetsSpringTestBase {
         assertEquals("invalid facet class found", TestFacet1.class, facet.getClass());
     }
 
-    public void testPackagePrecedencyInCaseOfDuplicates() {
-        Object facet = jFacets.getFacet("my", "john", "foobarbaz");
-        assertNotNull("facet is null", facet);
-        assertEquals("invalid facet class found", MyFacet2.class, facet.getClass());
-
-    }
-
 }
