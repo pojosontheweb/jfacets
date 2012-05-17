@@ -5,10 +5,10 @@
     <parent>
         <groupId>org.sonatype.oss</groupId>
         <artifactId>oss-parent</artifactId>
-        <version>5</version>
+        <version>6</version>
     </parent>
     <groupId>net.sourceforge.jfacets</groupId>
-    <version>3.2</version>
+    <version>3.2.1</version>
     <artifactId>jfacets-all</artifactId>
     <packaging>pom</packaging>
     <name>JFacets</name>
@@ -53,7 +53,6 @@
         </dependency>
     </dependencies>
     <build>
-        <defaultGoal>install</defaultGoal>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -65,17 +64,17 @@
             </plugin>
         </plugins>
     </build>
-    <reporting>
-        <plugins>
-          <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-javadoc-plugin</artifactId>
-            <configuration>
-              <aggregate>true</aggregate>
-            </configuration>
-          </plugin>
-        </plugins>
-      </reporting>
+    <!--<reporting>-->
+    <!--<plugins>-->
+    <!--<plugin>-->
+    <!--<groupId>org.apache.maven.plugins</groupId>-->
+    <!--<artifactId>maven-javadoc-plugin</artifactId>-->
+    <!--<configuration>-->
+    <!--<aggregate>true</aggregate>-->
+    <!--</configuration>-->
+    <!--</plugin>-->
+    <!--</plugins>-->
+    <!--</reporting>-->
     <profiles>
         <profile>
             <id>release</id>
@@ -84,28 +83,32 @@
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-javadoc-plugin</artifactId>
-                        <configuration>
-                            <show>private</show>
-                        </configuration>
+                        <version>2.7</version>
                         <executions>
                             <execution>
-                                <id>javadoc</id>
-                                <phase>install</phase>
+                                <id>generate-javadoc</id>
+                                <phase>package</phase>
                                 <goals>
                                     <goal>jar</goal>
                                 </goals>
+                                <configuration>
+                                    <author>true</author>
+                                    <protected>true</protected>
+                                    <use>true</use>
+                                    <version>true</version>
+                                </configuration>
                             </execution>
                         </executions>
                     </plugin>
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-source-plugin</artifactId>
+                        <version>2.1.2</version>
                         <executions>
                             <execution>
                                 <id>attach-sources</id>
-                                <phase>verify</phase>
                                 <goals>
-                                    <goal>jar</goal>
+                                    <goal>jar-no-fork</goal>
                                 </goals>
                             </execution>
                         </executions>

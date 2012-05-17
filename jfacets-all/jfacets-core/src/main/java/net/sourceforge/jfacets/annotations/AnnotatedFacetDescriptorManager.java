@@ -34,6 +34,8 @@ public class AnnotatedFacetDescriptorManager implements IFacetDescriptorManager 
 
 	private int nbDesc = 0;
 
+    private ClassLoader classLoader;
+
     /**
      * duplicated key policy : throw exception by default
      */
@@ -59,6 +61,20 @@ public class AnnotatedFacetDescriptorManager implements IFacetDescriptorManager 
         return this;
     }
 
+    /**
+     * Set the class loader to be used for classpath scanning
+     * @param classLoader the classloader to be used
+     * @return this for chained calls
+     */
+    public AnnotatedFacetDescriptorManager setClassLoader(ClassLoader classLoader) {
+        this.classLoader = classLoader;
+        return this;
+    }
+
+    public ClassLoader getClassLoader() {
+        return this.classLoader;
+    }
+
     public DuplicatedKeyPolicyType getDuplicatedKeyPolicy() {
         return duplicatedKeyPolicy;
     }
@@ -79,6 +95,10 @@ public class AnnotatedFacetDescriptorManager implements IFacetDescriptorManager 
                 logger.debug("Scanning package " + pkg);
             }
             ResolverUtil<Object> resolverUtil = new ResolverUtil<Object>();
+            if (classLoader!=null) {
+                logger.debug("Using supplied class loader " + classLoader);
+                resolverUtil.setClassLoader(classLoader);
+            }
             resolverUtil.findAnnotated(FacetKey.class, pkg);
             resolverUtil.findAnnotated(FacetKeyList.class, pkg);
             for (Class<?> clazz : resolverUtil.getClasses()) {
