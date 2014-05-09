@@ -11,13 +11,13 @@ public interface IFacetDescriptorManager {
 	/**
 	 * Return all managed facet descriptors
 	 */
-	public abstract List<FacetDescriptor> getDescriptors();
+	List<FacetDescriptor> getDescriptors();
 	
 	/** 
 	 * returns the descriptor for passed parameters, null if not found.
 	 * <br/><b>strict match</b> : does not handle inheritance
 	 */
-	public abstract FacetDescriptor getDescriptor(String name, String profileId, Class targetObjectType);
+	FacetDescriptor getDescriptor(String name, String profileId, Class targetObjectType);
 	
 	
 }
