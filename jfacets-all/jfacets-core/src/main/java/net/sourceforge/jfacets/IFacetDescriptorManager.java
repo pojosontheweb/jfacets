@@ -14,10 +14,10 @@ public interface IFacetDescriptorManager {
 	List<FacetDescriptor> getDescriptors();
 	
 	/** 
-	 * returns the descriptor for passed parameters, null if not found.
+	 * returns the descriptors for passed parameters, or an empty list if not found.
 	 * <br/><b>strict match</b> : does not handle inheritance
 	 */
-	FacetDescriptor getDescriptor(String name, String profileId, Class targetObjectType);
+	List<FacetDescriptor> getDescriptors(String name, String profileId, Class targetObjectType);
 	
 	
 }

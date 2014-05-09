@@ -24,9 +24,9 @@ public class MetaFacetDescriptorManagerTest extends TestCase {
 	}
 
 	public void testGetDescriptor() {
-		FacetDescriptor fd = metaManager.getDescriptor("test", "root_profile", Object.class);
+		FacetDescriptor fd = metaManager.getDescriptors("test", "root_profile", Object.class).get(0);
 		assertNotNull(fd);
-		fd = metaManager.getDescriptor("test", "admin_role", Object.class);
+		fd = metaManager.getDescriptors("test", "admin_role", Object.class).get(0);
 		assertNotNull(fd);
 	}
 

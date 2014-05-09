@@ -166,29 +166,39 @@ public class FacetRepositoryImpl implements IFacetRepository {
 		
 		if (logger.isDebugEnabled()) logger.debug("trying to get descriptor (" + facetName + "," + profile.getId() + "," + targetObject + "," + targetObjectClass + ")");	
 		
-		Object facet = null;
 		// try to find descriptor strict
-		FacetDescriptor fd = facetDescriptorManager.getDescriptor(facetName, profile.getId(), targetObjectClass);
+
+        List<FacetDescriptor> fds = facetDescriptorManager.getDescriptors(facetName, profile.getId(), targetObjectClass);
+        // find first non discarded FD if any
+        FacetDescriptor fd = null;
+        for (FacetDescriptor curFd : fds) {
+            if (!discardedDescriptors.contains(curFd)) {
+                fd = curFd;
+                break;
+            }
+        }
+
 		alreadyCheckedClasses.add(targetObjectClass);
-		if (fd==null || discardedDescriptors.contains(fd)) {
+		if (fd==null) {
 			
 			// descriptor not found, search in supertypes...
 			if (logger.isDebugEnabled()) logger.debug("descriptor not found, climbing supertype(s)...");
 			Class[] directSuperTypes = getDirectSuperTypes(targetObjectClass);
 			for(Class superType : directSuperTypes) {
 				if (!alreadyCheckedClasses.contains(superType)) {
-					facet = climbTypes(facetName, profile, targetObject, superType, alreadyCheckedClasses, discardedDescriptors);
+					Object facet = climbTypes(facetName, profile, targetObject, superType, alreadyCheckedClasses, discardedDescriptors);
 					if (facet!=null) {
-						break;
+						return facet;
 					}
 				}
 			}
+            return null;
 			
 		} else {
 			
 			// strict descriptor found, create the facet...
 			if (logger.isDebugEnabled()) logger.debug("descriptor found : " + fd + ", creating facet...");
-			facet = facetFactory.createFacet(fd);
+			Object facet = facetFactory.createFacet(fd);
 			if (logger.isDebugEnabled()) logger.debug("facet created : " + facet);			
 
 			// create and assign context if needed...
@@ -215,8 +225,9 @@ public class FacetRepositoryImpl implements IFacetRepository {
 					facet = climbTypes(facetName, profile, targetObject, targetObjectClass, alreadyCheckedClasses, discardedDescriptors);	
 				}
 			}
+
+            return facet;
 		}
-		return facet;
 	}
 
 }
