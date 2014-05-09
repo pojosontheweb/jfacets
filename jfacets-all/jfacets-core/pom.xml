@@ -8,7 +8,7 @@
     <parent>
     	<groupId>net.sourceforge.jfacets</groupId>
     	<artifactId>jfacets-all</artifactId>
-    	<version>4.0</version>
+    	<version>LATEST-SNAPSHOT</version>
   	</parent>
     <dependencies>
         <dependency>
