@@ -31,9 +31,9 @@ public class MetaFacetDescriptorManagerTest extends TestCase {
 	}
 
 	public void testGetDescriptors() {
-		FacetDescriptor[] descriptors = metaManager.getDescriptors();
+		List<FacetDescriptor> descriptors = metaManager.getDescriptors();
 		assertNotNull(descriptors);
-		assertEquals(3,	descriptors.length);
+		assertEquals(3,	descriptors.size());
 	}
 
 	public void testGetManagers() {

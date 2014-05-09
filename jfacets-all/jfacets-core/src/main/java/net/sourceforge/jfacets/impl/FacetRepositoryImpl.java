@@ -75,15 +75,15 @@ public class FacetRepositoryImpl implements IFacetRepository {
 	@SuppressWarnings("unchecked")
 	public FacetDescriptor[] getDescriptors(IProfile profile, Class targetObjectType) {
 		if (logger.isDebugEnabled()) logger.debug("getting facet descriptors for profile id " + profile.getId() + " and type = " + targetObjectType);
-		FacetDescriptor[] descriptors = facetDescriptorManager.getDescriptors();
+		List<FacetDescriptor> descriptors = facetDescriptorManager.getDescriptors();
 		ArrayList res = new ArrayList();
 		// get descriptors for profile
-		for (int i = 0; i < descriptors.length; i++) {
-			if (descriptors[i].getProfileId().equals(profile.getId())) {
-				if (logger.isDebugEnabled()) logger.debug("descriptor " + descriptors[i] + " matches profile");
+		for (FacetDescriptor descriptor : descriptors) {
+			if (descriptor.getProfileId().equals(profile.getId())) {
+				if (logger.isDebugEnabled()) logger.debug("descriptor " + descriptor + " matches profile");
 				// profile OK, look if type is assignable
-				if (descriptors[i].getTargetObjectType().isAssignableFrom(targetObjectType)) {
-					res.add(descriptors[i]);
+				if (descriptor.getTargetObjectType().isAssignableFrom(targetObjectType)) {
+					res.add(descriptor);
 					if (logger.isDebugEnabled()) logger.debug("  -> was compatible, added");
 				} else {
 					if (logger.isDebugEnabled()) logger.debug("  -> was not compatible, skipped");

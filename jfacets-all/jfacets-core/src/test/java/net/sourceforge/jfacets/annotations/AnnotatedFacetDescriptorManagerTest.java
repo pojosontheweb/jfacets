@@ -11,50 +11,6 @@ import java.util.List;
 
 public class AnnotatedFacetDescriptorManagerTest extends TestCase {
 
-    public void testDuplicatesThrowExceptionByDefault() {
-        try {
-            new AnnotatedFacetDescriptorManager(
-              Arrays.asList(
-                "net.sourceforge.jfacets.annotations.pkg2",
-                "net.sourceforge.jfacets.annotations.pkg1"
-              )
-            ).
-            initialize();
-            // should have thrown exception
-            fail("duplicated keys : should have thrown !");
-        } catch (DuplicatedKeyException e) {
-            // normal behavior
-        }
-    }
-
-    private void testOrdering(Class<?> expectedFacetClass, String... packageNames) {
-        AnnotatedFacetDescriptorManager afdm = new AnnotatedFacetDescriptorManager(Arrays.asList(packageNames)).
-            setDuplicatedKeyPolicy(DuplicatedKeyPolicyType.FirstScannedWins).
-            initialize();
-        boolean found = false;
-        for (FacetDescriptor fd : afdm.getDescriptors()) {
-            if (fd.getName().equals("my")) {
-                if (found) {
-                    fail("found several facets with name 'my'");
-                }
-                found = true;
-                assertEquals("invalid facet class", expectedFacetClass, fd.getFacetClass());
-            }
-        }
-    }
-
-    public void testPackageOrderingWithDuplicates() {
-        testOrdering(
-          MyFacet2.class,
-          "net.sourceforge.jfacets.annotations.pkg2",
-          "net.sourceforge.jfacets.annotations.pkg1");
-
-        testOrdering(
-          MyFacet1.class,
-          "net.sourceforge.jfacets.annotations.pkg1",
-          "net.sourceforge.jfacets.annotations.pkg2");
-    }
-
     // not a real test : we don't pass a loader that contains other facets
     // but still we go through the API...
     public void testWithSuppliedClassLoader() {
@@ -66,9 +22,8 @@ public class AnnotatedFacetDescriptorManagerTest extends TestCase {
                     )
                 )
                 .setClassLoader(getClass().getClassLoader())
-                .setDuplicatedKeyPolicy(DuplicatedKeyPolicyType.FirstScannedWins)
                 .initialize();
-        assertEquals("unexpected number of descriptors found", 1, afdm.getDescriptors().length);
+        assertEquals("unexpected number of descriptors found", 2, afdm.getDescriptors().size());
     }
 
 }

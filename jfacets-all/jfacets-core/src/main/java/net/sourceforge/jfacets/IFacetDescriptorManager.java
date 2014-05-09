@@ -1,5 +1,7 @@
 package net.sourceforge.jfacets;
 
+import java.util.List;
+
 /**
  * The interface for Facet Descriptor Managers, which manages the facet descriptors. 
  * Provides access to the descriptors.
@@ -9,7 +11,7 @@ public interface IFacetDescriptorManager {
 	/**
 	 * Return all managed facet descriptors
 	 */
-	public abstract FacetDescriptor[] getDescriptors();
+	public abstract List<FacetDescriptor> getDescriptors();
 	
 	/** 
 	 * returns the descriptor for passed parameters, null if not found.

@@ -2,6 +2,7 @@ package net.sourceforge.jfacets.impl;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import net.sourceforge.jfacets.FacetDescriptor;
@@ -25,7 +26,7 @@ public class MetaFacetDescriptorManager implements IFacetDescriptorManager {
 	protected List<FacetDescriptor> concatAll() {
 		ArrayList<FacetDescriptor> res = new ArrayList<FacetDescriptor>();
 		for (IFacetDescriptorManager m : managers)
-			res.addAll(Arrays.asList(m.getDescriptors()));
+			res.addAll(m.getDescriptors());
 		return res;
 	}
 	
@@ -47,12 +48,10 @@ public class MetaFacetDescriptorManager implements IFacetDescriptorManager {
 	/**
 	 * Return all descriptors in an array.
 	 */
-	public FacetDescriptor[] getDescriptors() {
+	public List<FacetDescriptor> getDescriptors() {
 		List<FacetDescriptor> all = concatAll();
-		FacetDescriptor[] res = new FacetDescriptor[all.size()];
-		res = (FacetDescriptor[])all.toArray(res);
-		if (logger.isDebugEnabled()) logger.debug("getDescriptors() : returning " + res.length + " descriptor(s)");
-		return res;
+		if (logger.isDebugEnabled()) logger.debug("getDescriptors() : returning " + all.size() + " descriptor(s)");
+		return Collections.unmodifiableList(all);
 	}
 	
 	/** return the managers to be used for descriptor lookup */
