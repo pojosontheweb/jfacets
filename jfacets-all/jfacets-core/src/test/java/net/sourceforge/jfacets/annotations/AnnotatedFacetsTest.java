@@ -15,8 +15,8 @@ public class AnnotatedFacetsTest extends JFacetsSpringTestBase {
     }
 
     public void testDescriptorsCount() {
-        int nbDescriptors = jFacets.getFacetRepository().getFacetDescriptorManager().getDescriptors().length;
-        assertEquals("invalid number of descriptors found", 3, nbDescriptors);
+        int nbDescriptors = jFacets.getFacetRepository().getFacetDescriptorManager().getDescriptors().size();
+        assertEquals("invalid number of descriptors found", 5, nbDescriptors);
     }
 
     public void testStringIvar() {
@@ -43,6 +43,14 @@ public class AnnotatedFacetsTest extends JFacetsSpringTestBase {
         Object facet = jFacets.getFacet("test", "john", new Date());
         assertNotNull("facet is null", facet);
         assertEquals("invalid facet class found", TestFacet1.class, facet.getClass());
+    }
+
+    public void testIssue1() {
+        Object facet1 = jFacets.getFacet("testIssue1", "john", 1);
+        Object facet2 = jFacets.getFacet("testIssue1", "john", 2);
+        Class<?> c1 = facet1.getClass();
+        Class<?> c2 = facet2.getClass();
+        assertFalse(c1.equals(c2));
     }
 
 }

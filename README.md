@@ -1,4 +1,4 @@
-jfacets
+JFacets
 =======
 
-The JFacets toolkit
+http://jfacets.rvkb.com

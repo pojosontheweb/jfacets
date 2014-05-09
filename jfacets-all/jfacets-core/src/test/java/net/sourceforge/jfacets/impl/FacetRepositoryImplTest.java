@@ -52,37 +52,6 @@ public class FacetRepositoryImplTest extends TestCase {
 		assertEquals(facetRepo.getProfileRepository(), profileRepo);
 	}
 
-	public void testGetDescriptors() {
-		IProfile ivar = profileRepo.getProfileById("ivar");
-		IProfile john = profileRepo.getProfileById("john");
-		IProfile root_profile = profileRepo.getProfileById("root_profile");
-		
-		// ivar / Object
-		FacetDescriptor[] descriptors = facetRepo.getDescriptors(ivar, Object.class);
-		assertNotNull(descriptors);
-		assertEquals(2, descriptors.length);
-
-		// ivar / Number
-		descriptors = facetRepo.getDescriptors(ivar, Number.class);
-		assertNotNull(descriptors);
-		assertEquals(2, descriptors.length);
-
-		// john / Object
-		descriptors = facetRepo.getDescriptors(john, Object.class);
-		assertNotNull(descriptors);
-		assertEquals(2, descriptors.length);
-
-		// root_pfl / Object
-		descriptors = facetRepo.getDescriptors(root_profile, Object.class);
-		assertNotNull(descriptors);
-		assertEquals(1, descriptors.length);
-
-		// root_pfl / Number
-		descriptors = facetRepo.getDescriptors(root_profile, Number.class);
-		assertNotNull(descriptors);
-		assertEquals(1, descriptors.length);
-	}
-
 	public void testGetFacetFactory() {
 		assertNotNull(facetRepo.getFacetFactory());
 	}
