@@ -8,7 +8,7 @@
         <version>6</version>
     </parent>
     <groupId>net.sourceforge.jfacets</groupId>
-    <version>LATEST-SNAPSHOT</version>
+    <version>4.0</version>
     <artifactId>jfacets-all</artifactId>
     <packaging>pom</packaging>
     <name>JFacets</name>
