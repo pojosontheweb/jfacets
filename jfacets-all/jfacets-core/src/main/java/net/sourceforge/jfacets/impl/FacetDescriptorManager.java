@@ -2,11 +2,13 @@ package net.sourceforge.jfacets.impl;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.List;
 
 import javax.xml.parsers.FactoryConfigurationError;
 import javax.xml.parsers.ParserConfigurationException;
 
 import net.sourceforge.jfacets.FacetDescriptor;
+import net.sourceforge.jfacets.FacetDescriptorManagerBase;
 import net.sourceforge.jfacets.IFacetDescriptorManager;
 import net.sourceforge.jfacets.log.JFacetsLogger;
 
@@ -19,12 +21,9 @@ import org.xml.sax.SAXException;
  * @author Remi VANKEISBELCK - rvkb.com (remi 'at' rvkb.com)
  * 
  */
-public class FacetDescriptorManager implements IFacetDescriptorManager {
+public class FacetDescriptorManager extends FacetDescriptorManagerBase {
 
 	private static final JFacetsLogger logger = JFacetsLogger.getLogger(FacetDescriptorManager.class);
-	
-	/** an array of all loaded descriptors */
-	private FacetDescriptor[] descriptors = null;
 
 	/** location of the facet descriptors file */
 	private String facetsFilePath = null;
@@ -53,33 +52,10 @@ public class FacetDescriptorManager implements IFacetDescriptorManager {
 		if (logger.isDebugEnabled()) logger.debug("loadDescriptors() : parsing...");
 		FacetsSaxParser parser = new FacetsSaxParser(is);
 		if (logger.isDebugEnabled()) logger.debug("loadDescriptors() : ... parsed");
-		descriptors = parser.getDescriptors();
-		if (logger.isDebugEnabled()) logger.debug("loadDescriptors() : " + descriptors.length + " descriptors loaded OK");
-		return descriptors.length;
-	}
-		
-	/** returns an array of all loaded descriptors */
-	public FacetDescriptor[] getDescriptors() {
-		return descriptors;
+		List<FacetDescriptor> descriptors = parser.getDescriptors();
+        setDescriptors(descriptors);
+		if (logger.isDebugEnabled()) logger.debug("loadDescriptors() : " + descriptors.size() + " descriptors loaded OK");
+		return descriptors.size();
 	}
 
-	/** 
-	 * returns the descriptor for passed parameters, null if not found.
-	 * strict match : does not handle inheritance
-	 */
-	public FacetDescriptor getDescriptor(String name, String profileId, Class targetObjectType) {
-		if (logger.isDebugEnabled()) logger.debug("getDescriptor() : trying to get descriptor for name='" + name + "' profileId='" + profileId + "' " +
-				"objType='" + targetObjectType.getName() + "' ...");
-		FacetDescriptor d = null;
-		for (int i = 0; ((i < descriptors.length) && (d==null)); i++) {
-			if ( (name.equals(descriptors[i].getName())) &&
-					(profileId.equals(descriptors[i].getProfileId())) &&
-					(targetObjectType.getName().equals(descriptors[i].getTargetObjectType().getName())) ) {
-				if (logger.isDebugEnabled()) logger.debug("getDescriptor() : ... descriptor found OK");
-				d = descriptors[i];
-			}
-		}
-		return d;
-	}
-	
 }

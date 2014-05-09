@@ -40,11 +40,8 @@ public class FacetsSaxParser extends DefaultHandler  {
 	/**
 	 * Returns all loaded descriptors
 	 */
-	@SuppressWarnings("unchecked")
-	public FacetDescriptor[] getDescriptors() {
-		FacetDescriptor[] res = new FacetDescriptor[descriptors.size()];
-		res = (FacetDescriptor[])descriptors.toArray(res);
-		return res;
+	public List<FacetDescriptor> getDescriptors() {
+        return Collections.unmodifiableList(descriptors);
 	}
 	
 	public void startDocument() {

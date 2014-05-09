@@ -41,11 +41,6 @@ public interface IFacetRepository {
 	 * @return the facet (with assigned context if implementing) if found, null if not found 
 	 */
 	public Object getFacet(String name, IProfile profile, Object targetObject, Class targetObjectType);
-	
-	/** 
-	 * Return all the facet descriptors that match passed profile 
-	 * and object type, handling inheritance.
-	 */ 
-	public FacetDescriptor[] getDescriptors(IProfile profile, Class targetObjectType);
+
 
 }

@@ -1,10 +1,12 @@
 package net.sourceforge.jfacets.annotations;
 
+import net.sourceforge.jfacets.FacetDescriptorManagerBase;
 import net.sourceforge.jfacets.IFacetDescriptorManager;
 import net.sourceforge.jfacets.FacetDescriptor;
 import net.sourceforge.jfacets.util.ResolverUtil;
 import net.sourceforge.jfacets.log.JFacetsLogger;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.ArrayList;
 
@@ -22,24 +24,14 @@ import java.util.ArrayList;
  * @author Remi VANKEISBELCK - remi@rvkb.com
  *
  */
-public class AnnotatedFacetDescriptorManager implements IFacetDescriptorManager {
+public class AnnotatedFacetDescriptorManager extends FacetDescriptorManagerBase {
 
 	private static final JFacetsLogger logger = JFacetsLogger.getLogger(AnnotatedFacetDescriptorManager.class);
 
 	/** base packages list to search facet scripts in */
 	private List<String> basePackages;
 
-	/** the list of loaded descriptors */
-	private ArrayList<FacetDescriptor> descriptors = new ArrayList<FacetDescriptor>();
-
-	private int nbDesc = 0;
-
     private ClassLoader classLoader;
-
-    /**
-     * duplicated key policy : throw exception by default
-     */
-    private DuplicatedKeyPolicyType duplicatedKeyPolicy = DuplicatedKeyPolicyType.ThrowException;
 
 	/**
 	 * Create the manager and set base packages that will be scanned for
@@ -49,17 +41,6 @@ public class AnnotatedFacetDescriptorManager implements IFacetDescriptorManager 
 	public AnnotatedFacetDescriptorManager(List<String> basePackages) {
 		this.basePackages = basePackages;
 	}
-
-    /**
-     * Set the duplicated key policy. This allows to enable duplicated keys, or to throw an exception when
-     * dups are found.
-     * @param policyType the policy to use
-     * @return this for chained calls
-     */
-    public AnnotatedFacetDescriptorManager setDuplicatedKeyPolicy(DuplicatedKeyPolicyType policyType) {
-        this.duplicatedKeyPolicy = policyType;
-        return this;
-    }
 
     /**
      * Set the class loader to be used for classpath scanning
@@ -75,10 +56,6 @@ public class AnnotatedFacetDescriptorManager implements IFacetDescriptorManager 
         return this.classLoader;
     }
 
-    public DuplicatedKeyPolicyType getDuplicatedKeyPolicy() {
-        return duplicatedKeyPolicy;
-    }
-
     /**
 	 * Loads all available Facet Descriptors by scanning the CLASSPATH with
 	 * specified base packages.
@@ -90,6 +67,7 @@ public class AnnotatedFacetDescriptorManager implements IFacetDescriptorManager 
             logger.warn("No base packages have been defined, as a result no annotated facet can be found ! " +
                     "Please set the basePackages property of the AnnotatedFacetDescriptorManager.");
         }
+        List<FacetDescriptor> annotatedDescriptors = new ArrayList<FacetDescriptor>();
         for (String pkg : basePackages) {
             if (logger.isDebugEnabled()) {
                 logger.debug("Scanning package " + pkg);
@@ -109,7 +87,7 @@ public class AnnotatedFacetDescriptorManager implements IFacetDescriptorManager 
                      // -------------------
                      FacetKey[] facetKeys = fkl.keys();
                      for (FacetKey facetKey : facetKeys) {
-                         createDescriptorForAnnotation(facetKey, clazz);
+                         createDescriptorForAnnotation(facetKey, clazz, annotatedDescriptors);
                      }
 
                  } else {
@@ -119,7 +97,7 @@ public class AnnotatedFacetDescriptorManager implements IFacetDescriptorManager 
 
                          // single facet key
                          // ----------------
-                         createDescriptorForAnnotation(annot, clazz);
+                         createDescriptorForAnnotation(annot, clazz, annotatedDescriptors);
 
                      } else {
                          // not annotated
@@ -128,7 +106,8 @@ public class AnnotatedFacetDescriptorManager implements IFacetDescriptorManager 
                  }
             }
         }
-		if (logger.isInfoEnabled()) logger.info("init OK, " + nbDesc + " descriptors loaded");
+        setDescriptors(annotatedDescriptors);
+		if (logger.isInfoEnabled()) logger.info("init OK, " + annotatedDescriptors.size() + " descriptors loaded");
         return this;
 	}
 
@@ -138,69 +117,26 @@ public class AnnotatedFacetDescriptorManager implements IFacetDescriptorManager 
 	 * @param annot The FacetKey annotation
 	 * @param facetClass The facet implementation class
 	 */
-	private void createDescriptorForAnnotation(FacetKey annot, Class facetClass) {
+	private void createDescriptorForAnnotation(FacetKey annot, Class<?> facetClass, List<FacetDescriptor> descriptors) {
 		// annotated, create and add descriptor
 		String name = annot.name();
 		String profileId = annot.profileId();
 		Class<?> targetObjectType = annot.targetObjectType();
 		if (name!=null && profileId!=null && targetObjectType!=null) {
-
-            // check if a descriptor already exists with the same values and handle
-            // as told by the duplicated key policy
-            FacetDescriptor dup = getDescriptor(name, profileId, targetObjectType);
-            if (dup!=null) {
-                switch(duplicatedKeyPolicy) {
-                    case ThrowException : {
-                        throw new DuplicatedKeyException(name, profileId, targetObjectType);
-                    }
-                    case FirstScannedWins : {
-                        // ignore the facet, just log a message
-                        logger.info("Ignoring duplicated facet key (" + name + "," + profileId + "," + targetObjectType +
-                            "), policy is set to first scanned wins");
-                    }
-                    break;
-                }
-            } else {
-                FacetDescriptor descriptor = new FacetDescriptor();
-                descriptor.setName(name);
-                descriptor.setProfileId(profileId);
-                descriptor.setTargetObjectType(targetObjectType);
-                descriptor.setFacetClass(facetClass);
-                descriptors.add(descriptor);
-                nbDesc++;
-                if (logger.isDebugEnabled()) logger.debug("Created and added descriptor " + descriptor + " for annotated facet class " + facetClass);
+            FacetDescriptor descriptor = new FacetDescriptor();
+            descriptor.setName(name);
+            descriptor.setProfileId(profileId);
+            descriptor.setTargetObjectType(targetObjectType);
+            descriptor.setFacetClass(facetClass);
+            descriptors.add(descriptor);
+            if (logger.isDebugEnabled()) {
+                logger.debug("Created and added descriptor " + descriptor + " for annotated facet class " + facetClass);
             }
+
 		} else {
 			// missing annot attributes
 			logger.warn("Class " + facetClass + " has the @FacetKey annot but some attributes are missing ! name, profileId and targetObjectType are required");
 		}
 	}
-
-	/**
-	 * Return the descriptor sctrictly associated to passed params if any,
-	 * null of not found.
-	 */
-	public FacetDescriptor getDescriptor(String name, String profileId, Class targetObjectType) {
-		FacetDescriptor res = null;
-		for (FacetDescriptor d : descriptors) {
-			if (d.getName().equals(name) &&
-					d.getProfileId().equals(profileId) &&
-					d.getTargetObjectType().equals(targetObjectType)) {
-				res = d;
-				break;
-			}
-		}
-		return res;
-	}
-
-	/**
-	 * Return all descriptors in an array.
-	 */
-	public FacetDescriptor[] getDescriptors() {
-		FacetDescriptor[] res = new FacetDescriptor[descriptors.size()];
-		res = descriptors.toArray(res);
-		return res;
-	}
-
 
 }

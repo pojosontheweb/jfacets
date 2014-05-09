@@ -1,6 +1,7 @@
 package net.sourceforge.jfacets.impl;
 
 import java.io.InputStream;
+import java.util.List;
 
 import junit.framework.TestCase;
 import net.sourceforge.jfacets.FacetDescriptor;
@@ -17,9 +18,9 @@ public class FacetsSaxParserTest extends TestCase {
 			fail("Exception caught : " + e);
 		}
 		assertNotNull(p);
-		FacetDescriptor[] descriptors = p.getDescriptors();
+		List<FacetDescriptor> descriptors = p.getDescriptors();
 		assertNotNull(descriptors);
-		assertEquals(descriptors.length, 3);
+		assertEquals(descriptors.size(), 3);
 	}
 
 }
