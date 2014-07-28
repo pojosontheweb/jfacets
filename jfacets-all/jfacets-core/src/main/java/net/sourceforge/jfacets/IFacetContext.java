@@ -32,8 +32,13 @@ public interface IFacetContext {
 	 * Return the <b>targetObject</b> for the facet
 	 */
 	public Object getTargetObject();
-	
-	/**
+
+    /**
+     * Return the <b>targetObjectClass</b> for the facet (as requested at run-time)
+     */
+    public Class<?> getTargetObjectClass();
+
+    /**
 	 * Return the facet descriptor that was used to lookup the facet
 	 * @return
 	 */

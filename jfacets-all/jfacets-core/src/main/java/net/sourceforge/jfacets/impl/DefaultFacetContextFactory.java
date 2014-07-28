@@ -18,9 +18,9 @@ public class DefaultFacetContextFactory implements IFacetContextFactory {
 	/**
 	 * Creates a DefaultFacetContext for passed parameters. 
 	 */
-	public IFacetContext create(String facetName, IProfile profile, Object targetObject, FacetDescriptor facetDescriptor) {
+	public IFacetContext create(String facetName, IProfile profile, Object targetObject, Class<?> targetObjectClass, FacetDescriptor facetDescriptor) {
 		if (logger.isDebugEnabled()) logger.debug("create() : creating default context...");
-		DefaultFacetContext ctx = new DefaultFacetContext(facetName, profile, targetObject, facetDescriptor);
+		DefaultFacetContext ctx = new DefaultFacetContext(facetName, profile, targetObject, targetObjectClass, facetDescriptor);
 		if (logger.isDebugEnabled()) logger.debug("create() : OK returning " + ctx);
 		return ctx;
 	}
