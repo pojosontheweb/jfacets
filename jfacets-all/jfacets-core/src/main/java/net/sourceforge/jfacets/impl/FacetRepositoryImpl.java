@@ -75,15 +75,15 @@ public class FacetRepositoryImpl implements IFacetRepository {
 	@SuppressWarnings("unchecked")
 	public FacetDescriptor[] getDescriptors(IProfile profile, Class targetObjectType) {
 		if (logger.isDebugEnabled()) logger.debug("getting facet descriptors for profile id " + profile.getId() + " and type = " + targetObjectType);
-		FacetDescriptor[] descriptors = facetDescriptorManager.getDescriptors();
+		List<FacetDescriptor> descriptors = facetDescriptorManager.getDescriptors();
 		ArrayList res = new ArrayList();
 		// get descriptors for profile
-		for (int i = 0; i < descriptors.length; i++) {
-			if (descriptors[i].getProfileId().equals(profile.getId())) {
-				if (logger.isDebugEnabled()) logger.debug("descriptor " + descriptors[i] + " matches profile");
+		for (FacetDescriptor descriptor : descriptors) {
+			if (descriptor.getProfileId().equals(profile.getId())) {
+				if (logger.isDebugEnabled()) logger.debug("descriptor " + descriptor + " matches profile");
 				// profile OK, look if type is assignable
-				if (descriptors[i].getTargetObjectType().isAssignableFrom(targetObjectType)) {
-					res.add(descriptors[i]);
+				if (descriptor.getTargetObjectType().isAssignableFrom(targetObjectType)) {
+					res.add(descriptor);
 					if (logger.isDebugEnabled()) logger.debug("  -> was compatible, added");
 				} else {
 					if (logger.isDebugEnabled()) logger.debug("  -> was not compatible, skipped");
@@ -127,7 +127,10 @@ public class FacetRepositoryImpl implements IFacetRepository {
 	public Object getFacet(String name, IProfile profile, Object targetObject, Class targetObjectType) {
 		if (logger.isDebugEnabled()) logger.debug("trying to retrieve facet name='" + name + "', profileId='" + profile.getId() + "',  targetObject='" + targetObject + "', targetObjectType='" + targetObjectType + "'...");		
 		ArrayList<FacetDescriptor> discardedDescriptors = new ArrayList<FacetDescriptor>();
-		Object facet = climbProfiles(name, profile, targetObject, targetObjectType, discardedDescriptors);
+        if (targetObjectType==null && targetObject!=null) {
+            targetObjectType = targetObject.getClass();
+        }
+		Object facet = climbProfiles(targetObjectType, name, profile, targetObject, targetObjectType, discardedDescriptors);
 		if (facet!=null && facet instanceof IInitializableFacet) {
 			if (logger.isDebugEnabled()) logger.debug("facet implements IInitializableFacet : initializing it");
 			((IInitializableFacet)facet).initializeFacet();
@@ -136,19 +139,20 @@ public class FacetRepositoryImpl implements IFacetRepository {
 		return facet;
 	}
 	
-	private Object climbProfiles(String facetName, 
-			IProfile profile, 
-			Object targetObject, 
-			Class targetObjectClass, 
+	private Object climbProfiles(Class<?> initialTargetClass,
+            String facetName,
+			IProfile profile,
+			Object targetObject,
+			Class<?> targetObjectClass,
 			List<FacetDescriptor> discardedDescriptors) {
 		
 		ArrayList<Class> alreadyCheckedClasses = new ArrayList<Class>();
-		Object facet = climbTypes(facetName, profile, targetObject, targetObjectClass, alreadyCheckedClasses, discardedDescriptors);
+		Object facet = climbTypes(initialTargetClass, facetName, profile, targetObject, targetObjectClass, alreadyCheckedClasses, discardedDescriptors);
 		if (facet==null) {
 			// facet not found, try super profile(s)...
 			IProfile[] parents = getProfileRepository().getSuperProfiles(profile);
 			for(IProfile parent : parents) {
-				facet = climbProfiles(facetName, parent, targetObject, targetObjectClass, discardedDescriptors);
+				facet = climbProfiles(initialTargetClass, facetName, parent, targetObject, targetObjectClass, discardedDescriptors);
 				if (facet!=null) {
 					break;
 				}
@@ -157,45 +161,56 @@ public class FacetRepositoryImpl implements IFacetRepository {
 		return facet;
 	}
 	
-	private Object climbTypes(String facetName, 
+	private Object climbTypes(Class<?> initialTargetClass,
+            String facetName,
 			IProfile profile, 
-			Object targetObject, 
-			Class targetObjectClass, 
+			Object targetObject,
+			Class targetObjectClass,
 			List<Class> alreadyCheckedClasses,
 			List<FacetDescriptor> discardedDescriptors) {
 		
 		if (logger.isDebugEnabled()) logger.debug("trying to get descriptor (" + facetName + "," + profile.getId() + "," + targetObject + "," + targetObjectClass + ")");	
 		
-		Object facet = null;
 		// try to find descriptor strict
-		FacetDescriptor fd = facetDescriptorManager.getDescriptor(facetName, profile.getId(), targetObjectClass);
+
+        List<FacetDescriptor> fds = facetDescriptorManager.getDescriptors(facetName, profile.getId(), targetObjectClass);
+        // find first non discarded FD if any
+        FacetDescriptor fd = null;
+        for (FacetDescriptor curFd : fds) {
+            if (!discardedDescriptors.contains(curFd)) {
+                fd = curFd;
+                break;
+            }
+        }
+
 		alreadyCheckedClasses.add(targetObjectClass);
-		if (fd==null || discardedDescriptors.contains(fd)) {
+		if (fd==null) {
 			
 			// descriptor not found, search in supertypes...
 			if (logger.isDebugEnabled()) logger.debug("descriptor not found, climbing supertype(s)...");
 			Class[] directSuperTypes = getDirectSuperTypes(targetObjectClass);
 			for(Class superType : directSuperTypes) {
 				if (!alreadyCheckedClasses.contains(superType)) {
-					facet = climbTypes(facetName, profile, targetObject, superType, alreadyCheckedClasses, discardedDescriptors);
+					Object facet = climbTypes(initialTargetClass, facetName, profile, targetObject, superType, alreadyCheckedClasses, discardedDescriptors);
 					if (facet!=null) {
-						break;
+						return facet;
 					}
 				}
 			}
+            return null;
 			
 		} else {
 			
 			// strict descriptor found, create the facet...
 			if (logger.isDebugEnabled()) logger.debug("descriptor found : " + fd + ", creating facet...");
-			facet = facetFactory.createFacet(fd);
+			Object facet = facetFactory.createFacet(fd);
 			if (logger.isDebugEnabled()) logger.debug("facet created : " + facet);			
 
 			// create and assign context if needed...
 			if (facet instanceof IFacet) {
 				if (logger.isDebugEnabled()) logger.debug("implements IFacet, creating and setting context...");
 				// facet implements IFacet : we create and set the context for it
-				IFacetContext ctx = facetContextFactory.create(facetName, profile, targetObject, fd);
+				IFacetContext ctx = facetContextFactory.create(facetName, profile, targetObject, initialTargetClass, fd);
 				((IFacet)facet).setFacetContext(ctx);
 				if (logger.isDebugEnabled()) logger.debug("context created and assigned : " + ctx);
 			}
@@ -212,11 +227,12 @@ public class FacetRepositoryImpl implements IFacetRepository {
 					// from here.
 					if (logger.isDebugEnabled()) logger.debug("instance facet " + facet + " is NOT matching ! continue to search");
 					discardedDescriptors.add(fd);
-					facet = climbTypes(facetName, profile, targetObject, targetObjectClass, alreadyCheckedClasses, discardedDescriptors);	
+					facet = climbTypes(initialTargetClass, facetName, profile, targetObject, targetObjectClass, alreadyCheckedClasses, discardedDescriptors);
 				}
 			}
+
+            return facet;
 		}
-		return facet;
 	}
 
 }

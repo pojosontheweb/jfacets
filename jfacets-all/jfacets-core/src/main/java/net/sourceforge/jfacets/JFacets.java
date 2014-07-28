@@ -1,5 +1,6 @@
 package net.sourceforge.jfacets;
 
+import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 
 import net.sourceforge.jfacets.log.JFacetsLogger;
@@ -229,17 +230,17 @@ public class JFacets {
 	public String dumpFacetsAsXml() {
 		StringBuffer res = new StringBuffer();
 		res.append("<facets>\n");
-		FacetDescriptor[] descriptors = getFacetRepository().getFacetDescriptorManager().getDescriptors();
-		for (int i = 0; i < descriptors.length; i++) {
-			if (isDescriptorOk(descriptors[i])) {
+		List<FacetDescriptor> descriptors = getFacetRepository().getFacetDescriptorManager().getDescriptors();
+		for (FacetDescriptor fd : descriptors) {
+			if (isDescriptorOk(fd)) {
 				res.append("  <facet name=\"");
-				res.append(descriptors[i].getName());
+				res.append(fd.getName());
 				res.append("\" profile=\"");
-				res.append(descriptors[i].getProfileId());
+				res.append(fd.getProfileId());
 				res.append("\" object_type=\"");
-				res.append(descriptors[i].getTargetObjectType().getName());
+				res.append(fd.getTargetObjectType().getName());
 				res.append("\" class=\"");
-				res.append(descriptors[i].getFacetClass().getName());
+				res.append(fd.getFacetClass().getName());
 				res.append("\"/>\n");
 			}
 		}

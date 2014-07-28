@@ -63,5 +63,29 @@ public class FacetDescriptor {
 		return "[FacetDescriptor name='" + name + "' profileId='" + profileId + "' objType='" + targetObjectType +
 			"' facetClass='" + facetClass + "']";
 	}
-	
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        FacetDescriptor that = (FacetDescriptor) o;
+
+        if (facetClass != null ? !facetClass.equals(that.facetClass) : that.facetClass != null) return false;
+        if (name != null ? !name.equals(that.name) : that.name != null) return false;
+        if (profileId != null ? !profileId.equals(that.profileId) : that.profileId != null) return false;
+        if (targetObjectType != null ? !targetObjectType.equals(that.targetObjectType) : that.targetObjectType != null)
+            return false;
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = profileId != null ? profileId.hashCode() : 0;
+        result = 31 * result + (name != null ? name.hashCode() : 0);
+        result = 31 * result + (targetObjectType != null ? targetObjectType.hashCode() : 0);
+        result = 31 * result + (facetClass != null ? facetClass.hashCode() : 0);
+        return result;
+    }
 }

@@ -11,19 +11,21 @@ import net.sourceforge.jfacets.IProfile;
  */
 public class DefaultFacetContext implements IFacetContext {
 
-	private String facetName;
-	private IProfile profile;
-	private Object targetObject;
-	private FacetDescriptor facetDescriptor;
-	
-	public DefaultFacetContext(String facetName, IProfile profile, Object targetObject, FacetDescriptor facetDescriptor) {
-		this.facetName = facetName;
-		this.profile = profile;
-		this.targetObject = targetObject;
-		this.facetDescriptor = facetDescriptor;
-	}
-	
-	public String getFacetName() {
+	private final String facetName;
+	private final IProfile profile;
+	private final Object targetObject;
+    private final Class<?> targetObjectClass;
+	private final FacetDescriptor facetDescriptor;
+
+    public DefaultFacetContext(String facetName, IProfile profile, Object targetObject, Class<?> targetObjectClass, FacetDescriptor facetDescriptor) {
+        this.facetName = facetName;
+        this.profile = profile;
+        this.targetObject = targetObject;
+        this.targetObjectClass = targetObjectClass;
+        this.facetDescriptor = facetDescriptor;
+    }
+
+    public String getFacetName() {
 		return facetName;
 	}
 
@@ -39,4 +41,7 @@ public class DefaultFacetContext implements IFacetContext {
 		return facetDescriptor;
 	}
 
+    public Class<?> getTargetObjectClass() {
+        return targetObjectClass;
+    }
 }
